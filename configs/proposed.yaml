@@ -1,0 +1,105 @@
+# RM-VMusic Phase 5: Proposed Method Configuration
+# Uncertainty-Aware Dynamic Multimodal Fusion under Distribution Shift (UAD-Fusion)
+
+experiment:
+  name: "rm_vmusic_uad_fusion"
+  seeds:
+    - 42
+    - 123
+    - 2026
+  num_classes: 11
+  device: "cpu"
+
+genres:
+  - "POP_BALLAD"
+  - "BOLERO_TRUTINH"
+  - "INSTRUMENTAL"
+  - "RAP_HIPHOP"
+  - "FOLK_TRADITIONAL"
+  - "DANCE_EDM"
+  - "REVOLUTIONARY"
+  - "NHAC_TRINH"
+  - "ROCK"
+  - "RB_SOUL"
+  - "CHILDREN"
+
+dataset:
+  master_path: "data/processed/master_metadata.csv"
+  trainable_path: "data/processed/trainable_metadata.csv"
+  splits_dir: "data/splits"
+  splits:
+    - "iid.csv"
+    - "artist_disjoint.csv"
+    - "missing_modality.csv"
+    - "label_shift.csv"
+    - "temporal.csv"
+
+model:
+  audio_dim: 128
+  lyrics_max_features: 5000
+  cover_emb_dim: 512
+  proj_dim: 256
+  dropout: 0.3
+  temperature: 0.1  # for contrastive learning
+
+modality_dropout:
+  enabled: true
+  p_audio: 0.20
+  p_lyrics: 0.20
+  p_cover: 0.20
+
+loss:
+  type: "weighted_ce"  # "weighted_ce" or "focal"
+  focal_gamma: 2.0
+  lambda_uncertainty: 0.10
+  lambda_robustness: 0.05
+  lambda_contrastive: 0.15
+
+training:
+  batch_size: 64
+  epochs: 35
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  early_stopping_patience: 8
+
+ablation_ladder:
+  - model_name: "Model_A_Baseline"
+    description: "Standard Concat Fusion Baseline"
+    use_reliability: false
+    use_modality_dropout: false
+    use_robustness: false
+    use_contrastive: false
+
+  - model_name: "Model_B_Dynamic_Reliability"
+    description: "Dynamic Uncertainty-Aware Reliability Fusion"
+    use_reliability: true
+    use_modality_dropout: false
+    use_robustness: false
+    use_contrastive: false
+
+  - model_name: "Model_C_Reliability_Modality_Dropout"
+    description: "Dynamic Reliability + Controlled Modality Dropout"
+    use_reliability: true
+    use_modality_dropout: true
+    use_robustness: false
+    use_contrastive: false
+
+  - model_name: "Model_D_Reliability_Dropout_Robustness"
+    description: "Dynamic Reliability + Modality Dropout + Distribution Invariance"
+    use_reliability: true
+    use_modality_dropout: true
+    use_robustness: true
+    use_contrastive: false
+
+  - model_name: "Model_E_Full_Proposed_UAD_Fusion"
+    description: "Full Proposed: Reliability + Dropout + Robustness + Contrastive"
+    use_reliability: true
+    use_modality_dropout: true
+    use_robustness: true
+    use_contrastive: true
+
+paths:
+  checkpoints_dir: "outputs/checkpoints/proposed"
+  metrics_dir: "outputs/metrics/proposed"
+  figures_dir: "reports/figures"
+  reports_dir: "reports"
