@@ -1,0 +1,7 @@
+source_name,file_path,sample_count,modality,license,release_year_status,genre_status,usability
+sunbv56/sunbv56_train_full.jsonl,data\raw\sunbv56_train_full.jsonl,7201,Metadata + Timestamps + Lyrics,Open Academic Research (Hugging Face),Missing in raw fields,Implicit / Needs ground truth matching,HIGH (Lyrics & Metadata)
+sunbv56/sunbv56_pilot_train.jsonl,data\raw\sunbv56_pilot_train.jsonl,1500,Metadata + Timestamps + Lyrics,Open Academic Research (Hugging Face),Missing in raw fields,Implicit / Needs ground truth matching,HIGH (Lyrics & Metadata)
+sunbv56/sunbv56_eval.jsonl,data\raw\sunbv56_eval.jsonl,643,Metadata + Timestamps + Lyrics,Open Academic Research (Hugging Face),Missing in raw fields,Implicit / Needs ground truth matching,HIGH (Lyrics & Metadata)
+VietLyrics/vietlyrics_train_7k.csv,data\raw\vietlyrics_train_7k.csv,7433,Metadata + Lyrics + Genre Tags,CC-BY-NC-SA 4.0 / Open Research,Sparse (< 1%),4382 / 7433 explicit tags,VERY HIGH (Core Genre Ground Truth)
+VietLyrics/vietlyrics_val_1k.csv,data\raw\vietlyrics_val_1k.csv,995,Metadata + Lyrics + Genre Tags,CC-BY-NC-SA 4.0 / Open Research,Sparse (< 1%),587 / 995 explicit tags,VERY HIGH (Core Genre Ground Truth)
+RM-VMusic Master Catalog,data\processed\master_metadata.csv,8738,Metadata + Physical Links + Release Years,MIT / Academic,770 verified records,"5,416 Tier A/B + 99 OTHER",CORE MASTER BASELINE

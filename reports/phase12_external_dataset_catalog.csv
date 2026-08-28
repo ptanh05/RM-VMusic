@@ -1,0 +1,6 @@
+dataset_name,url,provider,license,n_samples,vietnamese_coverage,genre_quality,temporal_metadata,artist_metadata,modality_coverage,license_clarity,duplicate_risk,research_usability,total_score,status
+VietLyrics (vi-song-7k-public),https://huggingface.co/datasets/tsdocode/vi-song-7k-public,VietLyrics Research Group (arXiv 2024),CC-BY-NC-SA 4.0,8428,10,9,2,9,7,10,9,10,75,ACCEPTED (Primary Ground Truth Source)
+sunbv56 / Song Dataset,https://huggingface.co/datasets/sunbv56/song_dataset,sunbv56 (Hugging Face),Open Academic Research,9344,10,4,1,9,8,8,8,8,56,ACCEPTED FOR LYRICS / METADATA ONLY (Unlabelled Genre)
+Vietnam Traditional Music (VNTM),https://www.kaggle.com/datasets/homata123/vntm-for-building-model-5-genres,Kaggle Open Dataset (LTPhat),CC0 / Public Domain,1250,10,8,2,6,9,9,9,8,70,ACCEPTED (Traditional Folk / Ca Trù / Chèo / Hát Xẩm)
+Vietnamese Music Dataset,https://huggingface.co/datasets/Toan-Minh-Duong-Son/vietnamese-music-dataset,Toan-Minh-Duong-Son,Unknown / Unspecified,450,10,5,2,6,7,3,5,4,42,REJECTED (Unclear License & Commercial Audio Risk)
+Zing MP3 Public Stream Index,https://zingmp3.vn,Zing MP3 / VNG Corporation,Commercial Proprietary,100000,10,8,3,9,9,1,5,2,47,REJECTED FOR DIRECT CRAWL (DRM & Copyright Boundary)

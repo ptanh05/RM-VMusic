@@ -1,0 +1,4 @@
+Year_Bucket,Current_V2_Samples,External_Available_Est,Gap_Severity
+Historical (<= 2018),526,200,LOW (Sufficient for Train)
+Transition (2019-2020),54,50,MEDIUM (Val partition is modest)
+Modern (>= 2021),190,80,HIGH (Missing Nhạc Trịnh & Thiếu Nhi)
