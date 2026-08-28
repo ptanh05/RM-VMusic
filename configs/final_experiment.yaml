@@ -5,7 +5,7 @@
 
 project:
   name: "RM-VMusic"
-  version: "2.0-Phase7B-Final"
+  version: "3.0-Production"
   date: "2026-08-28"
   primary_metric: "Macro-F1"
   seeds:
@@ -32,28 +32,27 @@ taxonomy:
     - "CHILDREN"
 
 dataset:
-  master_catalog: "data/processed/master_metadata.csv"
-  final_12class_metadata: "data/processed/final_12class_metadata.csv"
+  master_catalog: "data/processed/final_12class_metadata_v3.csv"
   splits_dir: "data/splits"
-  splits:
+  scenarios:
     iid:
-      train: "data/splits/final12_iid_train.csv"
-      val: "data/splits/final12_iid_val.csv"
-      test: "data/splits/final12_iid_test.csv"
+      train: "data/splits/iid/train.csv"
+      val: "data/splits/iid/val.csv"
+      test: "data/splits/iid/test.csv"
     artist_disjoint:
-      train: "data/splits/final12_artist_disjoint_train.csv"
-      val: "data/splits/final12_artist_disjoint_val.csv"
-      test: "data/splits/final12_artist_disjoint_test.csv"
+      train: "data/splits/artist_disjoint/train.csv"
+      val: "data/splits/artist_disjoint/val.csv"
+      test: "data/splits/artist_disjoint/test.csv"
     temporal:
-      train: "data/splits/final12_temporal_train.csv"
-      val: "data/splits/final12_temporal_val.csv"
-      test: "data/splits/final12_temporal_test.csv"
+      train: "data/splits/temporal/train.csv"
+      val: "data/splits/temporal/val.csv"
+      test: "data/splits/temporal/test.csv"
     label_shift:
-      train: "data/splits/final12_label_shift_train.csv"
-      val: "data/splits/final12_label_shift_val.csv"
-      test: "data/splits/final12_label_shift_test.csv"
+      train: "data/splits/label_shift/train.csv"
+      val: "data/splits/label_shift/val.csv"
+      test: "data/splits/label_shift/test.csv"
     missing_modality:
-      test: "data/splits/final12_missing_modality.csv"
+      test: "data/splits/missing_modality/test.csv"
 
 modalities:
   lyrics:
@@ -77,6 +76,7 @@ modalities:
 
 model:
   proj_dim: 256
+  hidden_dim: 128
   dropout: 0.30
   modality_dropout_p: 0.20
   temperature: 0.10
@@ -97,17 +97,8 @@ training:
 
 evaluation:
   metrics:
-    - "Accuracy"
     - "Macro-F1"
+    - "Accuracy"
     - "Weighted-F1"
-    - "Balanced_Accuracy"
     - "ECE (Expected Calibration Error)"
-    - "Brier_Score"
-    - "NLL (Negative Log-Likelihood)"
-  bootstrap_ci_samples: 1000
-
-paths:
-  checkpoints_dir: "outputs/checkpoints/final_master"
-  metrics_dir: "outputs/metrics"
-  figures_dir: "reports/figures"
-  reports_dir: "reports"
+    - "Brier Score"

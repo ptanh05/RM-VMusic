@@ -1,0 +1,13 @@
+Scenario,Model,Macro_F1_Mean,Macro_F1_Std,Accuracy_Mean,Accuracy_Std,ECE_Mean,F1_Display,Acc_Display
+iid,Early_Concat,23.12,0.83,50.74,2.77,0.0796,23.12 +/- 0.83,50.74 +/- 2.77
+iid,Late_Fusion,21.79,1.45,54.16,1.32,0.1123,21.79 +/- 1.45,54.16 +/- 1.32
+iid,Proposed_UAD_Fusion,21.91,1.31,52.63,1.76,0.0843,21.91 +/- 1.31,52.63 +/- 1.76
+artist_disjoint,Early_Concat,20.71,1.74,51.35,2.55,0.2126,20.71 +/- 1.74,51.35 +/- 2.55
+artist_disjoint,Late_Fusion,19.74,1.12,53.36,1.22,0.1722,19.74 +/- 1.12,53.36 +/- 1.22
+artist_disjoint,Proposed_UAD_Fusion,20.63,1.97,51.25,4.68,0.1093,20.63 +/- 1.97,51.25 +/- 4.68
+temporal,Early_Concat,10.73,1.79,24.53,11.35,0.1282,10.73 +/- 1.79,24.53 +/- 11.35
+temporal,Late_Fusion,1.55,0.0,8.42,0.0,0.1177,1.55 +/- 0.00,8.42 +/- 0.00
+temporal,Proposed_UAD_Fusion,10.47,2.02,23.26,12.45,0.1396,10.47 +/- 2.02,23.26 +/- 12.45
+label_shift,Early_Concat,24.45,1.01,44.61,1.63,0.0733,24.45 +/- 1.01,44.61 +/- 1.63
+label_shift,Late_Fusion,21.03,1.47,43.26,0.85,0.1707,21.03 +/- 1.47,43.26 +/- 0.85
+label_shift,Proposed_UAD_Fusion,22.74,2.03,44.19,0.43,0.1467,22.74 +/- 2.03,44.19 +/- 0.43

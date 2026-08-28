@@ -1,10 +1,17 @@
-# RM-VMusic Phase 4: Baseline Experiment Configuration
+# ==============================================================================
+# RM-VMusic: Physical Modality Baselines Configuration
+# ==============================================================================
 
 experiment:
-  name: "rm_vmusic_multimodal_baselines"
-  seed: 42
-  num_classes: 11
-  device: "cpu"  # PyTorch 2.5.1 CPU execution for RTX 5060 compatibility
+  name: "rm_vmusic_physical_baselines"
+  seeds:
+    - 42
+    - 123
+    - 2024
+    - 3407
+    - 7777
+  num_classes: 12
+  device: "cpu"
 
 genres:
   - "POP_BALLAD"
@@ -17,46 +24,43 @@ genres:
   - "NHAC_TRINH"
   - "ROCK"
   - "RB_SOUL"
+  - "OTHER"
   - "CHILDREN"
 
 dataset:
-  master_path: "data/processed/master_metadata.csv"
-  trainable_path: "data/processed/trainable_metadata.csv"
+  master_catalog: "data/processed/final_12class_metadata_v3.csv"
   splits_dir: "data/splits"
-  splits:
-    - "iid.csv"
-    - "artist_disjoint.csv"
-    - "missing_modality.csv"
-    - "label_shift.csv"
-    - "temporal.csv"
+  scenarios:
+    iid:
+      train: "data/splits/iid/train.csv"
+      val: "data/splits/iid/val.csv"
+      test: "data/splits/iid/test.csv"
+    artist_disjoint:
+      train: "data/splits/artist_disjoint/train.csv"
+      val: "data/splits/artist_disjoint/val.csv"
+      test: "data/splits/artist_disjoint/test.csv"
+    temporal:
+      train: "data/splits/temporal/train.csv"
+      val: "data/splits/temporal/val.csv"
+      test: "data/splits/temporal/test.csv"
+    label_shift:
+      train: "data/splits/label_shift/train.csv"
+      val: "data/splits/label_shift/val.csv"
+      test: "data/splits/label_shift/test.csv"
+    missing_modality:
+      test: "data/splits/missing_modality/test.csv"
 
 models:
-  audio_dim: 128
-  lyrics_max_features: 5000
-  lyrics_emb_dim: 256
-  cover_emb_dim: 512
-  hidden_dim: 256
-  dropout: 0.3
+  - "Lyrics_Only_TFIDF"
+  - "Cover_Only_Visual"
+  - "Audio_Only_ZeroMasked"
+  - "Early_Concat_Baseline"
+  - "Late_Fusion_Ensemble"
 
 training:
   batch_size: 64
   epochs: 35
   learning_rate: 0.001
   weight_decay: 0.0001
-  class_weighting: "balanced"  # w_c = N / (C * N_c) on train split only
+  class_weighting: "balanced_on_train_split"
   early_stopping_patience: 8
-
-modalities_ablation:
-  - "audio_only"
-  - "lyrics_only"
-  - "cover_only"
-  - "audio_lyrics"
-  - "audio_cover"
-  - "lyrics_cover"
-  - "audio_lyrics_cover"
-
-paths:
-  checkpoints_dir: "outputs/checkpoints"
-  metrics_dir: "outputs/metrics"
-  figures_dir: "reports/figures"
-  final_report: "reports/baseline_results.md"
