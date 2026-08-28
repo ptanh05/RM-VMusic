@@ -1,0 +1,12 @@
+Genre,Total_Samples,Physical_Audio_Count,Physical_Audio_Pct,Physical_Lyrics_Count,Physical_Lyrics_Pct,Physical_Cover_Count,Physical_Cover_Pct,Full_Multimodal,Audio_Plus_Lyrics,Audio_Plus_Cover,Lyrics_Plus_Cover,Audio_Only,Lyrics_Only,Cover_Only,Missing_All_Physical,Verified_Full_Multimodal_Pct
+POP_BALLAD,3031,0,0.0,2726,89.94,265,8.74,0,0,0,74,0,2652,191,114,0.0
+BOLERO_TRUTINH,807,0,0.0,694,86.0,89,11.03,0,0,0,13,0,681,76,37,0.0
+INSTRUMENTAL,287,0,0.0,217,75.61,27,9.41,0,0,0,5,0,212,22,48,0.0
+RAP_HIPHOP,221,0,0.0,111,50.23,8,3.62,0,0,0,4,0,107,4,106,0.0
+FOLK_TRADITIONAL,200,0,0.0,82,41.0,10,5.0,0,0,0,1,0,81,9,109,0.0
+DANCE_EDM,193,0,0.0,149,77.2,3,1.55,0,0,0,1,0,148,2,42,0.0
+REVOLUTIONARY,170,0,0.0,23,13.53,1,0.59,0,0,0,0,0,23,1,146,0.0
+NHAC_TRINH,145,0,0.0,12,8.28,2,1.38,0,0,0,0,0,12,2,131,0.0
+ROCK,137,0,0.0,15,10.95,3,2.19,0,0,0,0,0,15,3,119,0.0
+RB_SOUL,132,0,0.0,14,10.61,2,1.52,0,0,0,1,0,13,1,117,0.0
+CHILDREN,93,0,0.0,74,79.57,3,3.23,0,0,0,0,0,74,3,16,0.0
