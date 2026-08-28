@@ -1,0 +1,19 @@
+# RM-VMusic Git Ignore
+
+# Raw uncompressed source downloads exceeding GitHub limits
+data/raw/
+
+# Python cache & virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.env
+venv/
+env/
+
+# IDE & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

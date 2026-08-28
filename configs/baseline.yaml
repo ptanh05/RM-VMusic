@@ -1,0 +1,62 @@
+# RM-VMusic Phase 4: Baseline Experiment Configuration
+
+experiment:
+  name: "rm_vmusic_multimodal_baselines"
+  seed: 42
+  num_classes: 11
+  device: "cpu"  # PyTorch 2.5.1 CPU execution for RTX 5060 compatibility
+
+genres:
+  - "POP_BALLAD"
+  - "BOLERO_TRUTINH"
+  - "INSTRUMENTAL"
+  - "RAP_HIPHOP"
+  - "FOLK_TRADITIONAL"
+  - "DANCE_EDM"
+  - "REVOLUTIONARY"
+  - "NHAC_TRINH"
+  - "ROCK"
+  - "RB_SOUL"
+  - "CHILDREN"
+
+dataset:
+  master_path: "data/processed/master_metadata.csv"
+  trainable_path: "data/processed/trainable_metadata.csv"
+  splits_dir: "data/splits"
+  splits:
+    - "iid.csv"
+    - "artist_disjoint.csv"
+    - "missing_modality.csv"
+    - "label_shift.csv"
+    - "temporal.csv"
+
+models:
+  audio_dim: 128
+  lyrics_max_features: 5000
+  lyrics_emb_dim: 256
+  cover_emb_dim: 512
+  hidden_dim: 256
+  dropout: 0.3
+
+training:
+  batch_size: 64
+  epochs: 35
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  class_weighting: "balanced"  # w_c = N / (C * N_c) on train split only
+  early_stopping_patience: 8
+
+modalities_ablation:
+  - "audio_only"
+  - "lyrics_only"
+  - "cover_only"
+  - "audio_lyrics"
+  - "audio_cover"
+  - "lyrics_cover"
+  - "audio_lyrics_cover"
+
+paths:
+  checkpoints_dir: "outputs/checkpoints"
+  metrics_dir: "outputs/metrics"
+  figures_dir: "reports/figures"
+  final_report: "reports/baseline_results.md"

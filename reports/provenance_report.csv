@@ -1,0 +1,8 @@
+tier,label_source,annotation_status,sample_count,percentage,modality_audio_pct,modality_lyrics_pct,modality_cover_pct,year_verified_pct
+TIER_A,deterministic_mapping,cross_verified,4157,47.57,99.6,92.7,20.2,1.1
+TIER_B,artist_discography_verification,verified_from_artist_discography,47,0.54,100.0,95.7,17.0,0.0
+TIER_B,deterministic_mapping,normalized,147,1.68,100.0,0.0,0.0,0.7
+TIER_B,musicbrainz_artist_discography,verified_from_musicbrainz,823,9.42,100.0,0.0,0.0,87.4
+TIER_B,provenance_metadata_verification,verified_from_source_metadata,5,0.06,100.0,100.0,0.0,0.0
+TIER_B,source_tag_verification,verified_from_source_metadata,237,2.71,100.0,89.5,17.3,0.8
+TIER_C,unknown,needs_manual_annotation,3322,38.02,99.7,89.3,16.8,1.0
