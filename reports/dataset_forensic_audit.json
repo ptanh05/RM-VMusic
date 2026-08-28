@@ -1,0 +1,1077 @@
+{
+  "inventory": [
+    {
+      "Dataset": "Master Catalog",
+      "Path": "data\\processed\\master_metadata.csv",
+      "N_samples": 8738,
+      "N_artists": 3905,
+      "N_classes": 11,
+      "Status": "EXISTS"
+    },
+    {
+      "Dataset": "Trainable Metadata (11-Class Old)",
+      "Path": "data\\processed\\final_trainable_metadata.csv",
+      "N_samples": 5416,
+      "N_artists": 2712,
+      "N_classes": 11,
+      "Status": "EXISTS"
+    },
+    {
+      "Dataset": "Final 12-Class Metadata",
+      "Path": "data\\processed\\final_12class_metadata.csv",
+      "N_samples": 5515,
+      "N_artists": 2747,
+      "N_classes": 12,
+      "Status": "EXISTS"
+    },
+    {
+      "Dataset": "IID Train",
+      "Path": "data\\splits\\final12_iid_train.csv",
+      "N_samples": 3860,
+      "N_artists": 2137,
+      "N_classes": 12,
+      "Status": "EXISTS"
+    },
+    {
+      "Dataset": "IID Val",
+      "Path": "data\\splits\\final12_iid_val.csv",
+      "N_samples": 827,
+      "N_artists": 631,
+      "N_classes": 12,
+      "Status": "EXISTS"
+    },
+    {
+      "Dataset": "IID Test",
+      "Path": "data\\splits\\final12_iid_test.csv",
+      "N_samples": 828,
+      "N_artists": 642,
+      "N_classes": 12,
+      "Status": "EXISTS"
+    },
+    {
+      "Dataset": "Artist Disjoint Train",
+      "Path": "data\\splits\\final12_artist_disjoint_train.csv",
+      "N_samples": 3860,
+      "N_artists": 1908,
+      "N_classes": 12,
+      "Status": "EXISTS"
+    },
+    {
+      "Dataset": "Artist Disjoint Val",
+      "Path": "data\\splits\\final12_artist_disjoint_val.csv",
+      "N_samples": 827,
+      "N_artists": 428,
+      "N_classes": 12,
+      "Status": "EXISTS"
+    },
+    {
+      "Dataset": "Artist Disjoint Test",
+      "Path": "data\\splits\\final12_artist_disjoint_test.csv",
+      "N_samples": 828,
+      "N_artists": 411,
+      "N_classes": 12,
+      "Status": "EXISTS"
+    },
+    {
+      "Dataset": "Temporal Train",
+      "Path": "data\\splits\\final12_temporal_train.csv",
+      "N_samples": 526,
+      "N_artists": 88,
+      "N_classes": 11,
+      "Status": "EXISTS"
+    },
+    {
+      "Dataset": "Temporal Val",
+      "Path": "data\\splits\\final12_temporal_val.csv",
+      "N_samples": 54,
+      "N_artists": 29,
+      "N_classes": 9,
+      "Status": "EXISTS"
+    },
+    {
+      "Dataset": "Temporal Test",
+      "Path": "data\\splits\\final12_temporal_test.csv",
+      "N_samples": 190,
+      "N_artists": 62,
+      "N_classes": 10,
+      "Status": "EXISTS"
+    },
+    {
+      "Dataset": "Label Shift Train",
+      "Path": "data\\splits\\final12_label_shift_train.csv",
+      "N_samples": 3996,
+      "N_artists": 2218,
+      "N_classes": 12,
+      "Status": "EXISTS"
+    },
+    {
+      "Dataset": "Label Shift Val",
+      "Path": "data\\splits\\final12_label_shift_val.csv",
+      "N_samples": 584,
+      "N_artists": 483,
+      "N_classes": 12,
+      "Status": "EXISTS"
+    },
+    {
+      "Dataset": "Label Shift Test",
+      "Path": "data\\splits\\final12_label_shift_test.csv",
+      "N_samples": 935,
+      "N_artists": 648,
+      "N_classes": 12,
+      "Status": "EXISTS"
+    },
+    {
+      "Dataset": "Missing Modality",
+      "Path": "data\\splits\\final12_missing_modality.csv",
+      "N_samples": 5515,
+      "N_artists": 2747,
+      "N_classes": 12,
+      "Status": "EXISTS"
+    }
+  ],
+  "taxonomy": {
+    "table": [
+      {
+        "Class": "POP_BALLAD",
+        "Total_N": 3031,
+        "Pct_Total": 54.96,
+        "Artists": 1890,
+        "Status": "PASS"
+      },
+      {
+        "Class": "BOLERO_TRUTINH",
+        "Total_N": 807,
+        "Pct_Total": 14.63,
+        "Artists": 501,
+        "Status": "PASS"
+      },
+      {
+        "Class": "INSTRUMENTAL",
+        "Total_N": 287,
+        "Pct_Total": 5.2,
+        "Artists": 141,
+        "Status": "PASS"
+      },
+      {
+        "Class": "RAP_HIPHOP",
+        "Total_N": 221,
+        "Pct_Total": 4.01,
+        "Artists": 111,
+        "Status": "PASS"
+      },
+      {
+        "Class": "FOLK_TRADITIONAL",
+        "Total_N": 200,
+        "Pct_Total": 3.63,
+        "Artists": 77,
+        "Status": "PASS"
+      },
+      {
+        "Class": "DANCE_EDM",
+        "Total_N": 193,
+        "Pct_Total": 3.5,
+        "Artists": 139,
+        "Status": "PASS"
+      },
+      {
+        "Class": "REVOLUTIONARY",
+        "Total_N": 170,
+        "Pct_Total": 3.08,
+        "Artists": 31,
+        "Status": "PASS"
+      },
+      {
+        "Class": "NHAC_TRINH",
+        "Total_N": 145,
+        "Pct_Total": 2.63,
+        "Artists": 23,
+        "Status": "PASS"
+      },
+      {
+        "Class": "ROCK",
+        "Total_N": 137,
+        "Pct_Total": 2.48,
+        "Artists": 20,
+        "Status": "PASS"
+      },
+      {
+        "Class": "RB_SOUL",
+        "Total_N": 132,
+        "Pct_Total": 2.39,
+        "Artists": 27,
+        "Status": "PASS"
+      },
+      {
+        "Class": "OTHER",
+        "Total_N": 99,
+        "Pct_Total": 1.8,
+        "Artists": 54,
+        "Status": "WARNING (Small class)"
+      },
+      {
+        "Class": "CHILDREN",
+        "Total_N": 93,
+        "Pct_Total": 1.69,
+        "Artists": 41,
+        "Status": "WARNING (Small class)"
+      }
+    ],
+    "gini": 0.6101994560290118,
+    "max_min_ratio": 32.59139784946237,
+    "entropy": 2.3885297274823722,
+    "unexpected_genres": []
+  },
+  "split_class_distribution": [
+    {
+      "Split": "IID",
+      "Class": "POP_BALLAD",
+      "Train_N": 2121,
+      "Train_Pct": 54.95,
+      "Val_N": 455,
+      "Val_Pct": 55.02,
+      "Test_N": 455,
+      "Test_Pct": 54.95,
+      "Total_N": 3031,
+      "Status": "PASS"
+    },
+    {
+      "Split": "IID",
+      "Class": "BOLERO_TRUTINH",
+      "Train_N": 565,
+      "Train_Pct": 14.64,
+      "Val_N": 121,
+      "Val_Pct": 14.63,
+      "Test_N": 121,
+      "Test_Pct": 14.61,
+      "Total_N": 807,
+      "Status": "PASS"
+    },
+    {
+      "Split": "IID",
+      "Class": "INSTRUMENTAL",
+      "Train_N": 201,
+      "Train_Pct": 5.21,
+      "Val_N": 43,
+      "Val_Pct": 5.2,
+      "Test_N": 43,
+      "Test_Pct": 5.19,
+      "Total_N": 287,
+      "Status": "PASS"
+    },
+    {
+      "Split": "IID",
+      "Class": "RAP_HIPHOP",
+      "Train_N": 155,
+      "Train_Pct": 4.02,
+      "Val_N": 33,
+      "Val_Pct": 3.99,
+      "Test_N": 33,
+      "Test_Pct": 3.99,
+      "Total_N": 221,
+      "Status": "PASS"
+    },
+    {
+      "Split": "IID",
+      "Class": "FOLK_TRADITIONAL",
+      "Train_N": 140,
+      "Train_Pct": 3.63,
+      "Val_N": 30,
+      "Val_Pct": 3.63,
+      "Test_N": 30,
+      "Test_Pct": 3.62,
+      "Total_N": 200,
+      "Status": "PASS"
+    },
+    {
+      "Split": "IID",
+      "Class": "DANCE_EDM",
+      "Train_N": 135,
+      "Train_Pct": 3.5,
+      "Val_N": 29,
+      "Val_Pct": 3.51,
+      "Test_N": 29,
+      "Test_Pct": 3.5,
+      "Total_N": 193,
+      "Status": "PASS"
+    },
+    {
+      "Split": "IID",
+      "Class": "REVOLUTIONARY",
+      "Train_N": 119,
+      "Train_Pct": 3.08,
+      "Val_N": 25,
+      "Val_Pct": 3.02,
+      "Test_N": 26,
+      "Test_Pct": 3.14,
+      "Total_N": 170,
+      "Status": "PASS"
+    },
+    {
+      "Split": "IID",
+      "Class": "NHAC_TRINH",
+      "Train_N": 102,
+      "Train_Pct": 2.64,
+      "Val_N": 21,
+      "Val_Pct": 2.54,
+      "Test_N": 22,
+      "Test_Pct": 2.66,
+      "Total_N": 145,
+      "Status": "PASS"
+    },
+    {
+      "Split": "IID",
+      "Class": "ROCK",
+      "Train_N": 96,
+      "Train_Pct": 2.49,
+      "Val_N": 21,
+      "Val_Pct": 2.54,
+      "Test_N": 20,
+      "Test_Pct": 2.42,
+      "Total_N": 137,
+      "Status": "PASS"
+    },
+    {
+      "Split": "IID",
+      "Class": "RB_SOUL",
+      "Train_N": 92,
+      "Train_Pct": 2.38,
+      "Val_N": 20,
+      "Val_Pct": 2.42,
+      "Test_N": 20,
+      "Test_Pct": 2.42,
+      "Total_N": 132,
+      "Status": "PASS"
+    },
+    {
+      "Split": "IID",
+      "Class": "OTHER",
+      "Train_N": 69,
+      "Train_Pct": 1.79,
+      "Val_N": 15,
+      "Val_Pct": 1.81,
+      "Test_N": 15,
+      "Test_Pct": 1.81,
+      "Total_N": 99,
+      "Status": "PASS"
+    },
+    {
+      "Split": "IID",
+      "Class": "CHILDREN",
+      "Train_N": 65,
+      "Train_Pct": 1.68,
+      "Val_N": 14,
+      "Val_Pct": 1.69,
+      "Test_N": 14,
+      "Test_Pct": 1.69,
+      "Total_N": 93,
+      "Status": "PASS"
+    },
+    {
+      "Split": "Artist Disjoint",
+      "Class": "POP_BALLAD",
+      "Train_N": 2119,
+      "Train_Pct": 54.9,
+      "Val_N": 463,
+      "Val_Pct": 55.99,
+      "Test_N": 449,
+      "Test_Pct": 54.23,
+      "Total_N": 3031,
+      "Status": "PASS"
+    },
+    {
+      "Split": "Artist Disjoint",
+      "Class": "BOLERO_TRUTINH",
+      "Train_N": 569,
+      "Train_Pct": 14.74,
+      "Val_N": 130,
+      "Val_Pct": 15.72,
+      "Test_N": 108,
+      "Test_Pct": 13.04,
+      "Total_N": 807,
+      "Status": "PASS"
+    },
+    {
+      "Split": "Artist Disjoint",
+      "Class": "INSTRUMENTAL",
+      "Train_N": 159,
+      "Train_Pct": 4.12,
+      "Val_N": 50,
+      "Val_Pct": 6.05,
+      "Test_N": 78,
+      "Test_Pct": 9.42,
+      "Total_N": 287,
+      "Status": "PASS"
+    },
+    {
+      "Split": "Artist Disjoint",
+      "Class": "RAP_HIPHOP",
+      "Train_N": 161,
+      "Train_Pct": 4.17,
+      "Val_N": 40,
+      "Val_Pct": 4.84,
+      "Test_N": 20,
+      "Test_Pct": 2.42,
+      "Total_N": 221,
+      "Status": "PASS"
+    },
+    {
+      "Split": "Artist Disjoint",
+      "Class": "FOLK_TRADITIONAL",
+      "Train_N": 161,
+      "Train_Pct": 4.17,
+      "Val_N": 18,
+      "Val_Pct": 2.18,
+      "Test_N": 21,
+      "Test_Pct": 2.54,
+      "Total_N": 200,
+      "Status": "PASS"
+    },
+    {
+      "Split": "Artist Disjoint",
+      "Class": "DANCE_EDM",
+      "Train_N": 145,
+      "Train_Pct": 3.76,
+      "Val_N": 29,
+      "Val_Pct": 3.51,
+      "Test_N": 19,
+      "Test_Pct": 2.29,
+      "Total_N": 193,
+      "Status": "PASS"
+    },
+    {
+      "Split": "Artist Disjoint",
+      "Class": "REVOLUTIONARY",
+      "Train_N": 136,
+      "Train_Pct": 3.52,
+      "Val_N": 16,
+      "Val_Pct": 1.93,
+      "Test_N": 18,
+      "Test_Pct": 2.17,
+      "Total_N": 170,
+      "Status": "PASS"
+    },
+    {
+      "Split": "Artist Disjoint",
+      "Class": "NHAC_TRINH",
+      "Train_N": 85,
+      "Train_Pct": 2.2,
+      "Val_N": 10,
+      "Val_Pct": 1.21,
+      "Test_N": 50,
+      "Test_Pct": 6.04,
+      "Total_N": 145,
+      "Status": "PASS"
+    },
+    {
+      "Split": "Artist Disjoint",
+      "Class": "ROCK",
+      "Train_N": 105,
+      "Train_Pct": 2.72,
+      "Val_N": 16,
+      "Val_Pct": 1.93,
+      "Test_N": 16,
+      "Test_Pct": 1.93,
+      "Total_N": 137,
+      "Status": "PASS"
+    },
+    {
+      "Split": "Artist Disjoint",
+      "Class": "RB_SOUL",
+      "Train_N": 95,
+      "Train_Pct": 2.46,
+      "Val_N": 28,
+      "Val_Pct": 3.39,
+      "Test_N": 9,
+      "Test_Pct": 1.09,
+      "Total_N": 132,
+      "Status": "WARNING (Test < 10)"
+    },
+    {
+      "Split": "Artist Disjoint",
+      "Class": "OTHER",
+      "Train_N": 74,
+      "Train_Pct": 1.92,
+      "Val_N": 13,
+      "Val_Pct": 1.57,
+      "Test_N": 12,
+      "Test_Pct": 1.45,
+      "Total_N": 99,
+      "Status": "PASS"
+    },
+    {
+      "Split": "Artist Disjoint",
+      "Class": "CHILDREN",
+      "Train_N": 51,
+      "Train_Pct": 1.32,
+      "Val_N": 14,
+      "Val_Pct": 1.69,
+      "Test_N": 28,
+      "Test_Pct": 3.38,
+      "Total_N": 93,
+      "Status": "PASS"
+    },
+    {
+      "Split": "Temporal Shift",
+      "Class": "POP_BALLAD",
+      "Train_N": 11,
+      "Train_Pct": 2.09,
+      "Val_N": 8,
+      "Val_Pct": 14.81,
+      "Test_N": 16,
+      "Test_Pct": 8.42,
+      "Total_N": 35,
+      "Status": "WARNING (Train < 20)"
+    },
+    {
+      "Split": "Temporal Shift",
+      "Class": "BOLERO_TRUTINH",
+      "Train_N": 1,
+      "Train_Pct": 0.19,
+      "Val_N": 0,
+      "Val_Pct": 0.0,
+      "Test_N": 7,
+      "Test_Pct": 3.68,
+      "Total_N": 8,
+      "Status": "CRITICAL (Val=0)"
+    },
+    {
+      "Split": "Temporal Shift",
+      "Class": "INSTRUMENTAL",
+      "Train_N": 36,
+      "Train_Pct": 6.84,
+      "Val_N": 2,
+      "Val_Pct": 3.7,
+      "Test_N": 4,
+      "Test_Pct": 2.11,
+      "Total_N": 42,
+      "Status": "CRITICAL (Test < 5)"
+    },
+    {
+      "Split": "Temporal Shift",
+      "Class": "RAP_HIPHOP",
+      "Train_N": 37,
+      "Train_Pct": 7.03,
+      "Val_N": 11,
+      "Val_Pct": 20.37,
+      "Test_N": 58,
+      "Test_Pct": 30.53,
+      "Total_N": 106,
+      "Status": "PASS"
+    },
+    {
+      "Split": "Temporal Shift",
+      "Class": "FOLK_TRADITIONAL",
+      "Train_N": 77,
+      "Train_Pct": 14.64,
+      "Val_N": 2,
+      "Val_Pct": 3.7,
+      "Test_N": 9,
+      "Test_Pct": 4.74,
+      "Total_N": 88,
+      "Status": "WARNING (Test < 10)"
+    },
+    {
+      "Split": "Temporal Shift",
+      "Class": "DANCE_EDM",
+      "Train_N": 16,
+      "Train_Pct": 3.04,
+      "Val_N": 6,
+      "Val_Pct": 11.11,
+      "Test_N": 18,
+      "Test_Pct": 9.47,
+      "Total_N": 40,
+      "Status": "WARNING (Train < 20)"
+    },
+    {
+      "Split": "Temporal Shift",
+      "Class": "REVOLUTIONARY",
+      "Train_N": 101,
+      "Train_Pct": 19.2,
+      "Val_N": 3,
+      "Val_Pct": 5.56,
+      "Test_N": 5,
+      "Test_Pct": 2.63,
+      "Total_N": 109,
+      "Status": "WARNING (Test < 10)"
+    },
+    {
+      "Split": "Temporal Shift",
+      "Class": "NHAC_TRINH",
+      "Train_N": 95,
+      "Train_Pct": 18.06,
+      "Val_N": 1,
+      "Val_Pct": 1.85,
+      "Test_N": 0,
+      "Test_Pct": 0.0,
+      "Total_N": 96,
+      "Status": "CRITICAL (Test=0)"
+    },
+    {
+      "Split": "Temporal Shift",
+      "Class": "ROCK",
+      "Train_N": 92,
+      "Train_Pct": 17.49,
+      "Val_N": 15,
+      "Val_Pct": 27.78,
+      "Test_N": 13,
+      "Test_Pct": 6.84,
+      "Total_N": 120,
+      "Status": "PASS"
+    },
+    {
+      "Split": "Temporal Shift",
+      "Class": "RB_SOUL",
+      "Train_N": 48,
+      "Train_Pct": 9.13,
+      "Val_N": 6,
+      "Val_Pct": 11.11,
+      "Test_N": 58,
+      "Test_Pct": 30.53,
+      "Total_N": 112,
+      "Status": "PASS"
+    },
+    {
+      "Split": "Temporal Shift",
+      "Class": "OTHER",
+      "Train_N": 0,
+      "Train_Pct": 0.0,
+      "Val_N": 0,
+      "Val_Pct": 0.0,
+      "Test_N": 2,
+      "Test_Pct": 1.05,
+      "Total_N": 2,
+      "Status": "CRITICAL (Train=0)"
+    },
+    {
+      "Split": "Temporal Shift",
+      "Class": "CHILDREN",
+      "Train_N": 12,
+      "Train_Pct": 2.28,
+      "Val_N": 0,
+      "Val_Pct": 0.0,
+      "Test_N": 0,
+      "Test_Pct": 0.0,
+      "Total_N": 12,
+      "Status": "CRITICAL (Val=0)"
+    },
+    {
+      "Split": "Label Shift",
+      "Class": "POP_BALLAD",
+      "Train_N": 2364,
+      "Train_Pct": 59.16,
+      "Val_N": 303,
+      "Val_Pct": 51.88,
+      "Test_N": 364,
+      "Test_Pct": 38.93,
+      "Total_N": 3031,
+      "Status": "PASS"
+    },
+    {
+      "Split": "Label Shift",
+      "Class": "BOLERO_TRUTINH",
+      "Train_N": 629,
+      "Train_Pct": 15.74,
+      "Val_N": 81,
+      "Val_Pct": 13.87,
+      "Test_N": 97,
+      "Test_Pct": 10.37,
+      "Total_N": 807,
+      "Status": "PASS"
+    },
+    {
+      "Split": "Label Shift",
+      "Class": "INSTRUMENTAL",
+      "Train_N": 172,
+      "Train_Pct": 4.3,
+      "Val_N": 34,
+      "Val_Pct": 5.82,
+      "Test_N": 81,
+      "Test_Pct": 8.66,
+      "Total_N": 287,
+      "Status": "PASS"
+    },
+    {
+      "Split": "Label Shift",
+      "Class": "RAP_HIPHOP",
+      "Train_N": 132,
+      "Train_Pct": 3.3,
+      "Val_N": 27,
+      "Val_Pct": 4.62,
+      "Test_N": 62,
+      "Test_Pct": 6.63,
+      "Total_N": 221,
+      "Status": "PASS"
+    },
+    {
+      "Split": "Label Shift",
+      "Class": "FOLK_TRADITIONAL",
+      "Train_N": 120,
+      "Train_Pct": 3.0,
+      "Val_N": 24,
+      "Val_Pct": 4.11,
+      "Test_N": 56,
+      "Test_Pct": 5.99,
+      "Total_N": 200,
+      "Status": "PASS"
+    },
+    {
+      "Split": "Label Shift",
+      "Class": "DANCE_EDM",
+      "Train_N": 115,
+      "Train_Pct": 2.88,
+      "Val_N": 23,
+      "Val_Pct": 3.94,
+      "Test_N": 55,
+      "Test_Pct": 5.88,
+      "Total_N": 193,
+      "Status": "PASS"
+    },
+    {
+      "Split": "Label Shift",
+      "Class": "REVOLUTIONARY",
+      "Train_N": 102,
+      "Train_Pct": 2.55,
+      "Val_N": 20,
+      "Val_Pct": 3.42,
+      "Test_N": 48,
+      "Test_Pct": 5.13,
+      "Total_N": 170,
+      "Status": "PASS"
+    },
+    {
+      "Split": "Label Shift",
+      "Class": "NHAC_TRINH",
+      "Train_N": 87,
+      "Train_Pct": 2.18,
+      "Val_N": 17,
+      "Val_Pct": 2.91,
+      "Test_N": 41,
+      "Test_Pct": 4.39,
+      "Total_N": 145,
+      "Status": "PASS"
+    },
+    {
+      "Split": "Label Shift",
+      "Class": "ROCK",
+      "Train_N": 82,
+      "Train_Pct": 2.05,
+      "Val_N": 16,
+      "Val_Pct": 2.74,
+      "Test_N": 39,
+      "Test_Pct": 4.17,
+      "Total_N": 137,
+      "Status": "PASS"
+    },
+    {
+      "Split": "Label Shift",
+      "Class": "RB_SOUL",
+      "Train_N": 79,
+      "Train_Pct": 1.98,
+      "Val_N": 16,
+      "Val_Pct": 2.74,
+      "Test_N": 37,
+      "Test_Pct": 3.96,
+      "Total_N": 132,
+      "Status": "PASS"
+    },
+    {
+      "Split": "Label Shift",
+      "Class": "OTHER",
+      "Train_N": 59,
+      "Train_Pct": 1.48,
+      "Val_N": 12,
+      "Val_Pct": 2.05,
+      "Test_N": 28,
+      "Test_Pct": 2.99,
+      "Total_N": 99,
+      "Status": "PASS"
+    },
+    {
+      "Split": "Label Shift",
+      "Class": "CHILDREN",
+      "Train_N": 55,
+      "Train_Pct": 1.38,
+      "Val_N": 11,
+      "Val_Pct": 1.88,
+      "Test_N": 27,
+      "Test_Pct": 2.89,
+      "Total_N": 93,
+      "Status": "PASS"
+    }
+  ],
+  "split_issues": {
+    "IID": [],
+    "Artist Disjoint": [
+      "RB_SOUL Test < 10 (N=9)"
+    ],
+    "Temporal Shift": [
+      "POP_BALLAD Train < 20 (N=11)",
+      "BOLERO_TRUTINH Val=0",
+      "INSTRUMENTAL Test < 5 (N=4)",
+      "FOLK_TRADITIONAL Test < 10 (N=9)",
+      "DANCE_EDM Train < 20 (N=16)",
+      "REVOLUTIONARY Test < 10 (N=5)",
+      "NHAC_TRINH Test=0",
+      "OTHER Train=0",
+      "CHILDREN Val=0"
+    ],
+    "Label Shift": []
+  },
+  "artist_audit": [
+    {
+      "Split": "IID",
+      "Train_Samples": 3860,
+      "Train_Artists": 2137,
+      "Train_Samples_per_Artist": 1.81,
+      "Val_Samples": 827,
+      "Val_Artists": 631,
+      "Val_Samples_per_Artist": 1.31,
+      "Test_Samples": 828,
+      "Test_Artists": 642,
+      "Test_Samples_per_Artist": 1.29,
+      "Overlap_Tr_Va": 321,
+      "Overlap_Tr_Te": 324,
+      "Overlap_Va_Te": 166,
+      "Status": "PASS"
+    },
+    {
+      "Split": "Artist Disjoint",
+      "Train_Samples": 3860,
+      "Train_Artists": 1908,
+      "Train_Samples_per_Artist": 2.02,
+      "Val_Samples": 827,
+      "Val_Artists": 428,
+      "Val_Samples_per_Artist": 1.93,
+      "Test_Samples": 828,
+      "Test_Artists": 411,
+      "Test_Samples_per_Artist": 2.01,
+      "Overlap_Tr_Va": 0,
+      "Overlap_Tr_Te": 0,
+      "Overlap_Va_Te": 0,
+      "Status": "PASS"
+    },
+    {
+      "Split": "Temporal Shift",
+      "Train_Samples": 526,
+      "Train_Artists": 88,
+      "Train_Samples_per_Artist": 5.98,
+      "Val_Samples": 54,
+      "Val_Artists": 29,
+      "Val_Samples_per_Artist": 1.86,
+      "Test_Samples": 190,
+      "Test_Artists": 62,
+      "Test_Samples_per_Artist": 3.06,
+      "Overlap_Tr_Va": 15,
+      "Overlap_Tr_Te": 22,
+      "Overlap_Va_Te": 18,
+      "Status": "PASS"
+    },
+    {
+      "Split": "Label Shift",
+      "Train_Samples": 3996,
+      "Train_Artists": 2218,
+      "Train_Samples_per_Artist": 1.8,
+      "Val_Samples": 584,
+      "Val_Artists": 483,
+      "Val_Samples_per_Artist": 1.21,
+      "Test_Samples": 935,
+      "Test_Artists": 648,
+      "Test_Samples_per_Artist": 1.44,
+      "Overlap_Tr_Va": 254,
+      "Overlap_Tr_Te": 332,
+      "Overlap_Va_Te": 148,
+      "Status": "PASS"
+    }
+  ],
+  "leakage_forensic": [
+    {
+      "Split": "IID",
+      "Song_ID_Overlap_Tr_Va": 0,
+      "Song_ID_Overlap_Tr_Te": 0,
+      "Song_ID_Overlap_Va_Te": 0,
+      "Title_Artist_Overlap_Tr_Va": 0,
+      "Title_Artist_Overlap_Tr_Te": 0,
+      "Title_Artist_Overlap_Va_Te": 0,
+      "Status": "PASS"
+    },
+    {
+      "Split": "Artist Disjoint",
+      "Song_ID_Overlap_Tr_Va": 0,
+      "Song_ID_Overlap_Tr_Te": 0,
+      "Song_ID_Overlap_Va_Te": 0,
+      "Title_Artist_Overlap_Tr_Va": 0,
+      "Title_Artist_Overlap_Tr_Te": 0,
+      "Title_Artist_Overlap_Va_Te": 0,
+      "Status": "PASS"
+    },
+    {
+      "Split": "Temporal Shift",
+      "Song_ID_Overlap_Tr_Va": 0,
+      "Song_ID_Overlap_Tr_Te": 0,
+      "Song_ID_Overlap_Va_Te": 0,
+      "Title_Artist_Overlap_Tr_Va": 0,
+      "Title_Artist_Overlap_Tr_Te": 0,
+      "Title_Artist_Overlap_Va_Te": 0,
+      "Status": "PASS"
+    },
+    {
+      "Split": "Label Shift",
+      "Song_ID_Overlap_Tr_Va": 0,
+      "Song_ID_Overlap_Tr_Te": 0,
+      "Song_ID_Overlap_Va_Te": 0,
+      "Title_Artist_Overlap_Tr_Va": 0,
+      "Title_Artist_Overlap_Tr_Te": 0,
+      "Title_Artist_Overlap_Va_Te": 0,
+      "Status": "PASS"
+    }
+  ],
+  "modality_by_class": [
+    {
+      "Class": "POP_BALLAD",
+      "Total_N": 3031,
+      "Lyrics_N": 2726,
+      "Lyrics_Pct": 89.94,
+      "Cover_N": 587,
+      "Cover_Pct": 19.37,
+      "Audio_N": 0,
+      "Audio_Pct": 0.0,
+      "Status": "PASS"
+    },
+    {
+      "Class": "BOLERO_TRUTINH",
+      "Total_N": 807,
+      "Lyrics_N": 694,
+      "Lyrics_Pct": 86.0,
+      "Cover_N": 167,
+      "Cover_Pct": 20.69,
+      "Audio_N": 0,
+      "Audio_Pct": 0.0,
+      "Status": "PASS"
+    },
+    {
+      "Class": "INSTRUMENTAL",
+      "Total_N": 287,
+      "Lyrics_N": 217,
+      "Lyrics_Pct": 75.61,
+      "Cover_N": 44,
+      "Cover_Pct": 15.33,
+      "Audio_N": 0,
+      "Audio_Pct": 0.0,
+      "Status": "PASS"
+    },
+    {
+      "Class": "RAP_HIPHOP",
+      "Total_N": 221,
+      "Lyrics_N": 111,
+      "Lyrics_Pct": 50.23,
+      "Cover_N": 21,
+      "Cover_Pct": 9.5,
+      "Audio_N": 0,
+      "Audio_Pct": 0.0,
+      "Status": "PASS"
+    },
+    {
+      "Class": "FOLK_TRADITIONAL",
+      "Total_N": 200,
+      "Lyrics_N": 82,
+      "Lyrics_Pct": 41.0,
+      "Cover_N": 18,
+      "Cover_Pct": 9.0,
+      "Audio_N": 0,
+      "Audio_Pct": 0.0,
+      "Status": "PASS"
+    },
+    {
+      "Class": "DANCE_EDM",
+      "Total_N": 193,
+      "Lyrics_N": 149,
+      "Lyrics_Pct": 77.2,
+      "Cover_N": 21,
+      "Cover_Pct": 10.88,
+      "Audio_N": 0,
+      "Audio_Pct": 0.0,
+      "Status": "PASS"
+    },
+    {
+      "Class": "REVOLUTIONARY",
+      "Total_N": 170,
+      "Lyrics_N": 23,
+      "Lyrics_Pct": 13.53,
+      "Cover_N": 4,
+      "Cover_Pct": 2.35,
+      "Audio_N": 0,
+      "Audio_Pct": 0.0,
+      "Status": "PASS"
+    },
+    {
+      "Class": "NHAC_TRINH",
+      "Total_N": 145,
+      "Lyrics_N": 12,
+      "Lyrics_Pct": 8.28,
+      "Cover_N": 2,
+      "Cover_Pct": 1.38,
+      "Audio_N": 0,
+      "Audio_Pct": 0.0,
+      "Status": "PASS"
+    },
+    {
+      "Class": "ROCK",
+      "Total_N": 137,
+      "Lyrics_N": 15,
+      "Lyrics_Pct": 10.95,
+      "Cover_N": 6,
+      "Cover_Pct": 4.38,
+      "Audio_N": 0,
+      "Audio_Pct": 0.0,
+      "Status": "PASS"
+    },
+    {
+      "Class": "RB_SOUL",
+      "Total_N": 132,
+      "Lyrics_N": 14,
+      "Lyrics_Pct": 10.61,
+      "Cover_N": 4,
+      "Cover_Pct": 3.03,
+      "Audio_N": 0,
+      "Audio_Pct": 0.0,
+      "Status": "PASS"
+    },
+    {
+      "Class": "OTHER",
+      "Total_N": 99,
+      "Lyrics_N": 0,
+      "Lyrics_Pct": 0.0,
+      "Cover_N": 14,
+      "Cover_Pct": 14.14,
+      "Audio_N": 0,
+      "Audio_Pct": 0.0,
+      "Status": "WARNING (0 Lyrics)"
+    },
+    {
+      "Class": "CHILDREN",
+      "Total_N": 93,
+      "Lyrics_N": 74,
+      "Lyrics_Pct": 79.57,
+      "Cover_N": 14,
+      "Cover_Pct": 15.05,
+      "Audio_N": 0,
+      "Audio_Pct": 0.0,
+      "Status": "PASS"
+    }
+  ],
+  "temporal_audit": {
+    "total_verified": 770,
+    "min_year": 1967,
+    "max_year": 2026,
+    "train_n": 526,
+    "val_n": 54,
+    "test_n": 190,
+    "missing_genres_in_test": [
+      "NHAC_TRINH",
+      "CHILDREN"
+    ],
+    "missing_genres_in_train": [
+      "OTHER"
+    ]
+  }
+}

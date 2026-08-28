@@ -1,0 +1,4 @@
+Protocol,Train_N,Test_N,Train_Classes,Test_Classes,Missing_in_Test,Feasibility,Artist_Overlap
+"Protocol A (Standard: Train <= 2018, Val 2019-2020, Test >= 2021)",526,190,11,10,2,Feasible with 10 active classes in Test,22
+"Protocol B (Train <= 2020, Test >= 2021)",580,190,11,10,2,Feasible but identical test set (10 classes in Test),28
+Protocol C (Active-Classes-Only: 9 common classes across Train and Test),419,188,9,9,0,"Clean 9-class closed temporal evaluation (N_train=419, N_test=188)",22

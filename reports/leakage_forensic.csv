@@ -1,0 +1,5 @@
+Split,Song_ID_Overlap_Tr_Va,Song_ID_Overlap_Tr_Te,Song_ID_Overlap_Va_Te,Title_Artist_Overlap_Tr_Va,Title_Artist_Overlap_Tr_Te,Title_Artist_Overlap_Va_Te,Status
+IID,0,0,0,0,0,0,PASS
+Artist Disjoint,0,0,0,0,0,0,PASS
+Temporal Shift,0,0,0,0,0,0,PASS
+Label Shift,0,0,0,0,0,0,PASS
