@@ -1,0 +1,4 @@
+external_label,source_dataset,sample_count,decision
+cải lương,VietLyrics Raw,4,DO_NOT_FORCE (Quarantined - Traditional Opera)
+nhạc đạo,VietLyrics Raw,3,MAPPED_TO_OTHER (Sacred Religious Hymn)
+unknown genre,VietLyrics Raw,8,REJECTED_NO_GROUND_TRUTH
