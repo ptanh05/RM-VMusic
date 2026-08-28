@@ -1,0 +1,4 @@
+candidate_source,url,license,rejection_category,legal_rationale
+YouTube Vietnamese Nursery Streams (IPTV),https://github.com/iptv-org/iptv,Unknown / Commercial Streams,REJECTED_LICENSE_UNKNOWN,Live audio streams lack open distribution rights and verified metadata
+Trịnh Công Sơn Estate Lyrics Scrapes,https://trinhcongson.vn/,All Rights Reserved (Family Estate),REJECTED_COMMERCIAL_RESTRICTED,Proprietary estate copyright protects full commercial lyrics and master recordings
+Unlicensed Zing / Nhaccuatui Scrapers,GitHub / Zalo AI Challenge forks,Unspecified / Commercial API violation,REJECTED_COMMERCIAL_SCRAPING,Violates platform terms of service and DRM protection standards
