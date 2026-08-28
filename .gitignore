@@ -1,19 +1,173 @@
-# RM-VMusic Git Ignore
+# ==============================================================================
+# RM-VMusic: Multimodal Vietnamese Music Genre Classification
+# Standard .gitignore
+# ==============================================================================
 
-# Raw uncompressed source downloads exceeding GitHub limits
+# ------------------------------------------------------------------------------
+# 1. Heavy Data & Media Assets (Audio, Covers, Raw dumps)
+# ------------------------------------------------------------------------------
+# Raw downloads & external uncompressed datasets
 data/raw/
+data/audio/
+data/covers/
+data/features/
+data/cache/
+data/temp/
+data/tmp/
 
-# Python cache & virtual environments
+# Binary embeddings & matrices
+*.npy
+*.npz
+*.hdf5
+*.h5
+*.arrow
+*.parquet
+
+# Audio binary formats
+*.mp3
+*.wav
+*.flac
+*.m4a
+*.ogg
+*.opus
+*.aac
+*.wma
+
+# Compressed archives & temporary data files
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+*.gz
+*.bz2
+*.tmp
+*.bak
+*.swp
+scratch/
+
+# ------------------------------------------------------------------------------
+# 2. Model Checkpoints & Large Binary Weights
+# ------------------------------------------------------------------------------
+# PyTorch / ML weights & models
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.bin
+*.onnx
+*.engine
+*.tflite
+*.h5
+*.joblib
+*.pkl
+*.pickle
+*.model
+
+# Output checkpoints directory
+outputs/checkpoints/
+checkpoints/
+weights/
+
+# ------------------------------------------------------------------------------
+# 3. Experiment Tracking, Logs & Outputs
+# ------------------------------------------------------------------------------
+logs/
+*.log
+wandb/
+runs/
+lightning_logs/
+tensorboard/
+mlruns/
+*.tfevents.*
+outputs/wandb/
+outputs/logs/
+
+# ------------------------------------------------------------------------------
+# 4. Python Cache, Bytecode & Build Artifacts
+# ------------------------------------------------------------------------------
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
-.env
-venv/
-env/
+*.pyd
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+pip-wheel-metadata/
 
-# IDE & OS files
+# ------------------------------------------------------------------------------
+# 5. Virtual Environments & Package Managers
+# ------------------------------------------------------------------------------
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+conda-env/
+.conda/
+
+# ------------------------------------------------------------------------------
+# 6. Jupyter Notebook Checkpoints
+# ------------------------------------------------------------------------------
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+.jupyter/
+
+# ------------------------------------------------------------------------------
+# 7. Environment Variables, API Keys & Secrets
+# ------------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+credentials.json
+secrets.json
+token.json
+
+# ------------------------------------------------------------------------------
+# 8. IDEs, Editors & OS Files
+# ------------------------------------------------------------------------------
+# Visual Studio Code & JetBrains
 .vscode/
+*.code-workspace
 .idea/
+
+# AI Assistants & Agents metadata
+.cursor/
+.gemini/
+.agent/
+.agents/
+
+# Operating System artifacts
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
+desktop.ini
+
+# Caches
+.cache/
+tmp/
+temp/

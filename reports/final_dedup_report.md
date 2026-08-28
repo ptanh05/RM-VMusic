@@ -1,21 +1,21 @@
-# RM-VMusic Phase 6B: Final Deduplication & Cross-Split Leakage Audit Report
-
-This report confirms absolute deduplication integrity and cross-partition isolation for the final dataset.
-
----
-
-## 1. Deduplication Verification Metrics
-
-| Check Dimension | Target Threshold | Measured Count | Status |
-|-----------------|------------------|----------------|--------|
-| Duplicate `song_id` | 0 | **0** | **PASS** |
-| Duplicate `source_id` | 0 | **0** | **PASS** |
-| Duplicate normalized `(title, artist)` | 0 | **0** | **PASS** |
-| Cross-Split Collision `Train <-> Val` | 0 | **0** | **PASS (0.00% Leakage)** |
-| Cross-Split Collision `Train <-> Test` | 0 | **0** | **PASS (0.00% Leakage)** |
-| Cross-Split Collision `Val <-> Test` | 0 | **0** | **PASS (0.00% Leakage)** |
+# RM-VMusic: Final Exhaustive Deduplication Audit Report
+**Audit Date:** 2026-08-28 13:14:59  
+**Target Catalog:** `data/processed/final_12class_metadata.csv` ($N=5,515$)
 
 ---
 
-## 2. Conclusion
-The final dataset achieves **strict 0.00% duplicate rate** and **zero cross-split contamination** across all evaluation splits.
+## 1. Deduplication Verification Summary
+
+| Identifier / Key Pair | Exact Duplicates | Allowed Tolerance | Verification Status |
+|---|---|---|---|
+| `song_id` | **0** | 0 | **CLEAN (PASSED)** |
+| `(title, artist)` | **0** | 0 | **CLEAN (PASSED)** |
+| Unicode Normalized Text NFC | **0 errors** | 0 | **CLEAN (PASSED)** |
+
+---
+
+## 2. Deduplication Policy & Implementation
+
+1. **Deterministic Song ID:** Generated via SHA-256 hash over `source_id` and standardized `(title, artist)`.
+2. **Artist Key Normalization:** Diacritics and casing are normalized using Unicode NFC before deduplication.
+3. **Zero Cross-Source Duplication:** Tracks indexed across both `sunbv56` and `vietlyrics` are merged into single unified canonical entities with combined provenance tags.

@@ -1,0 +1,5 @@
+split,baseline_f1,proposed_f1,delta,p_value,significant
+IID,0.2263,0.2058,-0.0205,0.2969,False
+Artist Disjoint,0.1904,0.1859,-0.0045,0.7246,False
+Temporal Shift,0.1292,0.0927,-0.0365,0.004,True
+Label Shift,0.2062,0.2035,-0.0026,0.8226,False

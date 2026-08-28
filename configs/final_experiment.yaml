@@ -1,0 +1,113 @@
+# ==============================================================================
+# RM-VMusic: Final Master Experiment Configuration
+# Project: Reliable Multimodal Vietnamese Music Genre Classification under Distribution Shift
+# ==============================================================================
+
+project:
+  name: "RM-VMusic"
+  version: "2.0-Phase7B-Final"
+  date: "2026-08-28"
+  primary_metric: "Macro-F1"
+  seeds:
+    - 42
+    - 123
+    - 2024
+    - 3407
+    - 7777
+
+taxonomy:
+  num_classes: 12
+  classes:
+    - "POP_BALLAD"
+    - "BOLERO_TRUTINH"
+    - "INSTRUMENTAL"
+    - "RAP_HIPHOP"
+    - "FOLK_TRADITIONAL"
+    - "DANCE_EDM"
+    - "REVOLUTIONARY"
+    - "NHAC_TRINH"
+    - "ROCK"
+    - "RB_SOUL"
+    - "OTHER"
+    - "CHILDREN"
+
+dataset:
+  master_catalog: "data/processed/master_metadata.csv"
+  final_12class_metadata: "data/processed/final_12class_metadata.csv"
+  splits_dir: "data/splits"
+  splits:
+    iid:
+      train: "data/splits/final12_iid_train.csv"
+      val: "data/splits/final12_iid_val.csv"
+      test: "data/splits/final12_iid_test.csv"
+    artist_disjoint:
+      train: "data/splits/final12_artist_disjoint_train.csv"
+      val: "data/splits/final12_artist_disjoint_val.csv"
+      test: "data/splits/final12_artist_disjoint_test.csv"
+    temporal:
+      train: "data/splits/final12_temporal_train.csv"
+      val: "data/splits/final12_temporal_val.csv"
+      test: "data/splits/final12_temporal_test.csv"
+    label_shift:
+      train: "data/splits/final12_label_shift_train.csv"
+      val: "data/splits/final12_label_shift_val.csv"
+      test: "data/splits/final12_label_shift_test.csv"
+    missing_modality:
+      test: "data/splits/final12_missing_modality.csv"
+
+modalities:
+  lyrics:
+    enabled: true
+    feature_type: "TF-IDF (unigrams + bigrams)"
+    dimension: 5000
+    physical_cache: "data/features/lyrics/lyrics_features_5000.npy"
+    source_dir: "data/lyrics"
+  cover:
+    enabled: true
+    feature_type: "Spatial Color Histogram + RGB Gradient Moments"
+    dimension: 512
+    physical_cache: "data/features/cover/cover_features_512.npy"
+    source_dir: "data/covers"
+  audio:
+    enabled: true
+    feature_type: "Acoustic Spectral / Zero-Masked for Missing"
+    dimension: 128
+    physical_cache: "data/features/audio/audio_features_128.npy"
+    source_dir: "data/audio"
+
+model:
+  proj_dim: 256
+  dropout: 0.30
+  modality_dropout_p: 0.20
+  temperature: 0.10
+  use_reliability: true
+  use_modality_dropout: true
+
+training:
+  batch_size: 64
+  epochs: 35
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  class_weighting: "balanced_on_train_split"
+  early_stopping_patience: 8
+  loss:
+    ce_weight: 1.00
+    supcon_weight: 0.15
+    invariance_weight: 0.05
+
+evaluation:
+  metrics:
+    - "Accuracy"
+    - "Macro-F1"
+    - "Weighted-F1"
+    - "Balanced_Accuracy"
+    - "ECE (Expected Calibration Error)"
+    - "Brier_Score"
+    - "NLL (Negative Log-Likelihood)"
+  bootstrap_ci_samples: 1000
+
+paths:
+  checkpoints_dir: "outputs/checkpoints/final_master"
+  metrics_dir: "outputs/metrics"
+  figures_dir: "reports/figures"
+  reports_dir: "reports"

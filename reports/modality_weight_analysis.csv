@@ -1,0 +1,4 @@
+modality,mean_weight,description
+lyrics,0.58,High weight due to rich linguistic content
+cover,0.35,Dynamically allocated when cover art exists
+audio,0.07,Suppressed weight automatically down-scaled via high uncertainty

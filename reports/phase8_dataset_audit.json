@@ -1,0 +1,113 @@
+{
+  "dataset_summary": {
+    "master_catalog_size": 8738,
+    "trainable_dataset_size": 5515,
+    "num_classes": 12,
+    "class_distribution": {
+      "POP_BALLAD": 3031,
+      "BOLERO_TRUTINH": 807,
+      "INSTRUMENTAL": 287,
+      "RAP_HIPHOP": 221,
+      "FOLK_TRADITIONAL": 200,
+      "DANCE_EDM": 193,
+      "REVOLUTIONARY": 170,
+      "NHAC_TRINH": 145,
+      "ROCK": 137,
+      "RB_SOUL": 132,
+      "OTHER": 99,
+      "CHILDREN": 93
+    },
+    "unique_artists": 2747,
+    "tracks_per_artist_mean": 2.007644703312705,
+    "tracks_per_artist_max": 62,
+    "tracks_per_artist_median": 1.0,
+    "other_class_count": 99,
+    "other_class_artists": 54,
+    "other_class_reasons": {
+      "Religious / Sacred spiritual Vietnamese music": 90,
+      "Film Soundtrack / OST composition": 7,
+      "Holiday / Festival seasonal music": 1,
+      "Country style": 1
+    }
+  },
+  "deduplication": {
+    "duplicate_song_id": 0,
+    "duplicate_title_artist": 0,
+    "status": "PASSED"
+  },
+  "splits_audit": {
+    "IID": {
+      "train_size": 3860,
+      "val_size": 827,
+      "test_size": 828,
+      "song_leakage": 0,
+      "artist_leakage_train_val": 321,
+      "artist_leakage_train_test": 324,
+      "artist_leakage_val_test": 166,
+      "artist_leakage_total": 811
+    },
+    "Artist Disjoint": {
+      "train_size": 3860,
+      "val_size": 827,
+      "test_size": 828,
+      "song_leakage": 0,
+      "artist_leakage_train_val": 0,
+      "artist_leakage_train_test": 0,
+      "artist_leakage_val_test": 0,
+      "artist_leakage_total": 0
+    },
+    "Temporal Shift": {
+      "train_size": 526,
+      "val_size": 54,
+      "test_size": 190,
+      "song_leakage": 0,
+      "artist_leakage_train_val": 15,
+      "artist_leakage_train_test": 22,
+      "artist_leakage_val_test": 18,
+      "artist_leakage_total": 55
+    },
+    "Label Shift": {
+      "train_size": 3996,
+      "val_size": 584,
+      "test_size": 935,
+      "song_leakage": 0,
+      "artist_leakage_train_val": 254,
+      "artist_leakage_train_test": 332,
+      "artist_leakage_val_test": 148,
+      "artist_leakage_total": 734
+    }
+  },
+  "physical_assets": {
+    "physical_audio_files_on_disk": 0,
+    "physical_cover_files_on_disk": 1445,
+    "physical_lyrics_files_on_disk": 4117,
+    "lyrics_features_shape": [
+      5515,
+      5000
+    ],
+    "cover_features_shape": [
+      5515,
+      512
+    ],
+    "audio_features_shape": [
+      5515,
+      128
+    ],
+    "active_lyrics_masks": 4117,
+    "active_cover_masks": 902,
+    "active_audio_masks": 0,
+    "audio_zero_masking_integrity": "PASSED",
+    "cover_zero_masking_integrity": "PASSED",
+    "lyrics_zero_masking_integrity": "PASSED",
+    "pseudo_hash_vectors_detected": false
+  },
+  "vocabulary_audit": {
+    "vocab_size": 5000,
+    "max_features": 5000,
+    "ngram_range": [
+      1,
+      2
+    ],
+    "status": "PASSED (Fitted strictly on Train partition text)"
+  }
+}

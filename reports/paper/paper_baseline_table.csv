@@ -1,0 +1,8 @@
+modality,accuracy,macro_f1,weighted_f1,balanced_accuracy,status
+audio_only,0.5495,0.0591,0.3898,0.0833,Degenerate to prior (Zero-Mask)
+cover_only,0.0894,0.0297,0.0948,0.0943,Visual color/gradient moments
+lyrics_only,0.4771,0.2088,0.5083,0.2691,Linguistic TF-IDF features
+audio_lyrics,0.4855,0.2289,0.5215,0.2886,Lyrics + Audio Zero-Mask
+audio_cover,0.0495,0.031,0.0417,0.0966,Cover + Audio Zero-Mask
+lyrics_cover,0.5254,0.2009,0.5358,0.2467,Lyrics + Physical Covers
+audio_lyrics_cover,0.5435,0.2396,0.5625,0.2947,Full Multimodal Concatenation
