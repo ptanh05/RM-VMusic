@@ -1,8 +1,8 @@
 Modality_Subset,Macro_F1,Accuracy,ECE
-Lyrics_Only (L),12.52,52.51,0.3516
-Cover_Only (C),0.41,2.51,0.2254
-Audio_Only (A),0.27,1.67,0.1426
-Lyrics_Cover (LC),12.52,52.51,0.3512
-Lyrics_Audio (LA),12.36,50.12,0.3327
-Cover_Audio (CA),0.27,1.67,0.1483
-All_Three (LCA),12.31,50.0,0.33
+Lyrics_Only (L),1.27,1.95,0.9429
+Cover_Only (C),0.33,2.02,0.2866
+Audio_Only (A),7.28,26.95,0.2759
+Lyrics_Cover (LC),1.27,1.95,0.9428
+Lyrics_Audio (LA),1.71,2.41,0.8672
+Cover_Audio (CA),7.3,27.02,0.2774
+All_Three (LCA),1.71,2.41,0.8671

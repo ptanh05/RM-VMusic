@@ -4,7 +4,7 @@
 # ==============================================================================
 
 experiment:
-  name: "rm_vmusic_uad_fusion"
+  name: "rm_vmusic_uad_fusion_v4"
   seeds:
     - 42
     - 123
@@ -16,20 +16,20 @@ experiment:
 
 genres:
   - "POP_BALLAD"
+  - "FOLK_TRADITIONAL"
   - "BOLERO_TRUTINH"
   - "INSTRUMENTAL"
-  - "RAP_HIPHOP"
-  - "FOLK_TRADITIONAL"
-  - "DANCE_EDM"
   - "REVOLUTIONARY"
-  - "NHAC_TRINH"
+  - "RAP_HIPHOP"
   - "ROCK"
   - "RB_SOUL"
-  - "OTHER"
+  - "DANCE_EDM"
   - "CHILDREN"
+  - "NHAC_TRINH"
+  - "OTHER"
 
 dataset:
-  master_catalog: "data/processed/final_12class_metadata_v3.csv"
+  master_catalog: "data/processed/final_12class_metadata_v4.csv"
   splits_dir: "data/splits"
   scenarios:
     iid:
@@ -58,7 +58,7 @@ model:
   proj_dim: 256
   hidden_dim: 128
   dropout: 0.30
-  temperature: 0.10  # for contrastive learning
+  temperature: 0.10
 
 modality_dropout:
   enabled: true
@@ -80,39 +80,3 @@ training:
   weight_decay: 0.0001
   class_weighting: "balanced_on_train_split"
   early_stopping_patience: 8
-
-ablation_ladder:
-  - model_name: "Model_A_Baseline"
-    description: "Standard Concat Fusion Baseline"
-    use_reliability: false
-    use_modality_dropout: false
-    use_robustness: false
-    use_contrastive: false
-
-  - model_name: "Model_B_Dynamic_Reliability"
-    description: "Dynamic Uncertainty-Aware Reliability Fusion"
-    use_reliability: true
-    use_modality_dropout: false
-    use_robustness: false
-    use_contrastive: false
-
-  - model_name: "Model_C_Reliability_Modality_Dropout"
-    description: "Dynamic Reliability + Controlled Modality Dropout"
-    use_reliability: true
-    use_modality_dropout: true
-    use_robustness: false
-    use_contrastive: false
-
-  - model_name: "Model_D_Reliability_Dropout_Robustness"
-    description: "Dynamic Reliability + Modality Dropout + Distribution Invariance"
-    use_reliability: true
-    use_modality_dropout: true
-    use_robustness: true
-    use_contrastive: false
-
-  - model_name: "Model_E_Full_Proposed_UAD_Fusion"
-    description: "Full Proposed: Reliability + Dropout + Robustness + Contrastive"
-    use_reliability: true
-    use_modality_dropout: true
-    use_robustness: true
-    use_contrastive: true
