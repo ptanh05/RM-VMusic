@@ -1,0 +1,8 @@
+Modality_Combination,Baseline_Macro_F1,Proposed_Macro_F1,Delta
+Audio-only,0.0575,0.0612,0.0037
+Lyrics-only,0.2364,0.2389,0.0025
+Cover-only,0.041,0.0415,0.0005
+Audio + Lyrics,0.2433,0.251,0.0077
+Audio + Cover,0.0859,0.0892,0.0033
+Lyrics + Cover,0.2544,0.2568,0.0024
+Audio + Lyrics + Cover (All),0.2584,0.2629,0.0045

@@ -1,0 +1,2 @@
+Split,Unseen_Artists,Baseline_Macro_F1,Proposed_Macro_F1,Proposed_Std,Leakage
+artist_disjoint.csv,813,0.2459,0.2232,0.0137,0.00%

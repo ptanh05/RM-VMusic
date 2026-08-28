@@ -1,0 +1,6 @@
+Variant,IID_F1,Artist_F1,Missing_Modality_F1,Label_Shift_F1,Temporal_F1
+Model A (Baseline Concat Fusion),0.2584,0.2459,0.1663,0.2524,0.1573
+Model B (+ Dynamic Reliability),0.2576,0.2481,0.1685,0.253,0.158
+Model C (+ Modality Dropout),0.2613,0.251,0.1742,0.2541,0.1592
+Model D (+ Distribution Robustness),0.2629,0.2543,0.178,0.2562,0.161
+Model E (+ Supervised Contrastive),0.2543,0.2232,0.1693,0.2266,0.1399
