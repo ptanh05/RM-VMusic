@@ -1,0 +1,5 @@
+Formula_ID,Formula_Name,Macro_F1_Mean,Macro_F1_Std,Macro_F1_Min,Macro_F1_Max,Balanced_Acc_Mean,Balanced_Acc_Std,Minority_F1_Mean,Minority_F1_Std,Worst_F1_Mean,Head_Tail_Gap_Mean,ECE_Mean,ECE_Std,Paired_Diff_vs_B1
+B1_Current_Balanced,Current Balanced (Smoothed Inverse),26.22,1.56,24.33,27.92,31.25,1.54,9.72,1.1,0.0,59.84,0.1865,0.0344,0.00% (Baseline Reference)
+B2_Linear_Inverse,Pure Linear Inverse Frequency (1/N_c),26.54,1.2,24.45,28.01,31.11,1.44,9.82,0.97,0.0,60.41,0.1833,0.0073,+0.32 +/- 1.71%
+B2_Sqrt_Inverse,Square-Root Inverse Frequency (1/sqrt(N_c)),26.41,0.63,25.49,27.24,30.35,0.61,9.69,1.06,0.0,61.41,0.1098,0.0195,+0.19 +/- 1.17%
+B3_Effective_Number,Effective Number of Samples (beta=0.999),25.89,0.58,25.47,27.03,30.11,0.91,8.97,1.13,0.0,61.59,0.1736,0.0224,-0.34 +/- 1.35%
