@@ -1,0 +1,6 @@
+Asset_Directory,Physical_Files_Found,Valid_Physical_Files,Metadata_Records,Physical_Coverage_Pct,Total_Size_MB,Details
+data/audio/,0,0,5416,0.0,0.0,Waveform files (.mp3/.wav)
+data/covers/,413,413,5416,7.63,17.7,Image artwork files (.jpg/.png)
+data/lyrics/,4117,4117,5416,76.02,0.0,"Text files (1,515,114 words total)"
+data/processed/,7,5416,8738,100.0,0.0,"Trainable: 5,416 | Master: 8,738"
+data/splits/,18,13,5416,100.0,0.0,Benchmark split files
