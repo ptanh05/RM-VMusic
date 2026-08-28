@@ -1,0 +1,5 @@
+source_id,source_name,url,license_type,rejection_tier,reason
+REJ_LIC_01,VietSing SVS Corpus,https://www.researchgate.net/publication/VietSing,Restricted Academic,TIER_4_RESTRICTED_ACCESS,Authors explicitly state dataset cannot be publicly distributed due to licensing restrictions
+REJ_LIC_02,YouTube Vietnamese Nursery Streams,https://github.com/iptv-org/iptv,Unknown / Unlicensed Broadcast,TIER_5_UNKNOWN_LICENSE,Commercial livestream broadcast URLs lack open redistribution licenses and track metadata
+REJ_LIC_03,Trịnh Công Sơn Family Estate Digital Lyrics,https://trinhcongson.vn/,Proprietary All Rights Reserved,TIER_6_PROPRIETARY_ESTATE,Family estate retains all commercial copyright; redistribution in ML benchmarks is prohibited
+REJ_LIC_04,Commercial Streaming Scrapers (Zing/Spotify/NCT),Zing MP3 / Nhaccuatui Web APIs,Commercial Proprietary,TIER_7_DRM_PROTECTED,Direct audio scraping violates Terms of Service and digital rights management policies

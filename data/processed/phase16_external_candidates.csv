@@ -1,0 +1,1 @@
+song_id,title,artist,artist_id,genre,label_source,label_confidence,other_reason,audio_path,audio_status,lyrics_path,lyrics_status,cover_path,cover_status,release_year,year_status,tier,modality_state,dataset_version,release_year_status,release_year_source,lyrics_available,cover_available,audio_available,version_type,source,source_id,dedup_status,quality_status
