@@ -41,6 +41,7 @@ scripts/phase14_*.py
 scripts/phase15_*.py
 scripts/phase16_*.py
 scripts/build_dataset_v4_audio_expanded.py
+scripts/extract_features_v4.py
 
 # ------------------------------------------------------------------------------
 # 3. File dữ liệu ngoại vi, danh mục trung gian & hàng đợi (External Catalogs & Queues)
