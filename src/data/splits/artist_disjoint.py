@@ -10,8 +10,12 @@ def split_artist_disjoint(df, train_ratio=0.70, val_ratio=0.15, test_ratio=0.15,
     """
     Performs group stratified artist-disjoint splitting.
     """
+    df_copy = df.copy()
+    norm_col = "_artist_norm"
+    df_copy[norm_col] = df_copy[artist_col].astype(str).str.strip().str.lower()
+
     # 1. Aggregate primary genre per artist for balanced stratification
-    artist_meta = df.groupby(artist_col).agg(
+    artist_meta = df_copy.groupby(norm_col).agg(
         song_count=("song_id", "count"),
         primary_genre=(genre_col, lambda x: x.mode()[0])
     ).reset_index()
@@ -25,13 +29,13 @@ def split_artist_disjoint(df, train_ratio=0.70, val_ratio=0.15, test_ratio=0.15,
         temp_artists, test_size=(1.0 - val_rel_size), random_state=random_state, stratify=temp_artists["primary_genre"]
     )
     
-    tr_art_set = set(tr_artists[artist_col])
-    va_art_set = set(va_artists[artist_col])
-    te_art_set = set(te_artists[artist_col])
+    tr_art_set = set(tr_artists[norm_col])
+    va_art_set = set(va_artists[norm_col])
+    te_art_set = set(te_artists[norm_col])
     
-    tr_df = df[df[artist_col].isin(tr_art_set)].copy()
-    va_df = df[df[artist_col].isin(va_art_set)].copy()
-    te_df = df[df[artist_col].isin(te_art_set)].copy()
+    tr_df = df_copy[df_copy[norm_col].isin(tr_art_set)].drop(columns=[norm_col]).copy()
+    va_df = df_copy[df_copy[norm_col].isin(va_art_set)].drop(columns=[norm_col]).copy()
+    te_df = df_copy[df_copy[norm_col].isin(te_art_set)].drop(columns=[norm_col]).copy()
     
     # Verify zero leakage
     verify_zero_artist_leakage(tr_df, va_df, te_df, artist_col=artist_col)

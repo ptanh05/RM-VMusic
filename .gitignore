@@ -1,12 +1,81 @@
 # ==============================================================================
 # RM-VMusic: Multimodal Vietnamese Music Genre Classification
-# Standard .gitignore
+# Production .gitignore
 # ==============================================================================
 
 # ------------------------------------------------------------------------------
-# 1. Heavy Data & Media Assets (Audio, Covers, Raw dumps)
+# 1. Thư mục nháp, file thử nghiệm & ghi chú cá nhân (Drafts & Scratch)
 # ------------------------------------------------------------------------------
-# Raw downloads & external uncompressed datasets
+scratch/
+draft/
+drafts/
+tmp/
+temp/
+*.tmp
+*.bak
+*.swp
+*.draft.*
+*.scratch.*
+check_*.py
+inspect_*.py
+test_*.py
+scratch_*
+
+# ------------------------------------------------------------------------------
+# 2. Script tìm kiếm, cào dữ liệu & xử lý ngoại vi (Data Hunting & Ingestion)
+# ------------------------------------------------------------------------------
+scripts/ingest_*.py
+scripts/integrate_*.py
+scripts/harvest_*.py
+scripts/crawler_*.py
+scripts/expand_*.py
+scripts/targeted_collection.py
+scripts/collect_*.py
+scripts/recover_*.py
+scripts/*_external_*.py
+scripts/*_experimental_*.py
+scripts/phase11_*.py
+scripts/phase12_*.py
+scripts/phase13_*.py
+scripts/phase14_*.py
+scripts/phase15_*.py
+scripts/phase16_*.py
+scripts/build_dataset_v4_audio_expanded.py
+
+# ------------------------------------------------------------------------------
+# 3. File dữ liệu ngoại vi, danh mục trung gian & hàng đợi (External Catalogs & Queues)
+# ------------------------------------------------------------------------------
+data/raw/external/
+data/processed/external_*.csv
+data/processed/*external*.csv
+data/processed/*phase*.csv
+data/processed/*candidate*.csv
+data/processed/*_expanded*.csv
+data/processed/*queue*.csv
+data/processed/*rejected*.csv
+data/processed/*blocked*.csv
+data/processed/*inventory*.csv
+data/splits/v4/
+data/splits/external/
+data/splits/experimental/
+data/splits/tmp/
+
+# ------------------------------------------------------------------------------
+# 4. Báo cáo nháp & kết quả thử nghiệm mở rộng (Draft Reports & Working Logs)
+# ------------------------------------------------------------------------------
+reports/*expanded_report*.md
+reports/*phase1[1-6]*
+reports/*_draft*
+reports/*_temp*
+reports/*_candidate*
+reports/*_inventory*
+reports/*_decision*
+reports/*_quality_report*
+reports/*_status_report*
+
+# ------------------------------------------------------------------------------
+# 5. Dữ liệu nhị phân & tài sản media nặng (Audio, Covers, Features)
+# ------------------------------------------------------------------------------
 data/raw/
 data/audio/
 data/covers/
@@ -23,7 +92,7 @@ data/tmp/
 *.arrow
 *.parquet
 
-# Audio binary formats
+# Audio formats
 *.mp3
 *.wav
 *.flac
@@ -33,7 +102,7 @@ data/tmp/
 *.aac
 *.wma
 
-# Compressed archives & temporary data files
+# Compressed archives
 *.zip
 *.tar
 *.tar.gz
@@ -42,15 +111,10 @@ data/tmp/
 *.7z
 *.gz
 *.bz2
-*.tmp
-*.bak
-*.swp
-scratch/
 
 # ------------------------------------------------------------------------------
-# 2. Model Checkpoints & Large Binary Weights
+# 6. Checkpoint mô hình & trọng số huấn luyện (Model Weights)
 # ------------------------------------------------------------------------------
-# PyTorch / ML weights & models
 *.pt
 *.pth
 *.ckpt
@@ -59,19 +123,17 @@ scratch/
 *.onnx
 *.engine
 *.tflite
-*.h5
 *.joblib
 *.pkl
 *.pickle
 *.model
 
-# Output checkpoints directory
 outputs/checkpoints/
 checkpoints/
 weights/
 
 # ------------------------------------------------------------------------------
-# 3. Experiment Tracking, Logs & Outputs
+# 7. Experiment Tracking, Logs & Outputs
 # ------------------------------------------------------------------------------
 logs/
 *.log
@@ -85,7 +147,7 @@ outputs/wandb/
 outputs/logs/
 
 # ------------------------------------------------------------------------------
-# 4. Python Cache, Bytecode & Build Artifacts
+# 8. Python Cache, Bytecode & Build Artifacts
 # ------------------------------------------------------------------------------
 __pycache__/
 *.py[cod]
@@ -113,7 +175,7 @@ MANIFEST
 pip-wheel-metadata/
 
 # ------------------------------------------------------------------------------
-# 5. Virtual Environments & Package Managers
+# 9. Virtual Environments & Package Managers
 # ------------------------------------------------------------------------------
 .venv/
 venv/
@@ -125,14 +187,14 @@ conda-env/
 .conda/
 
 # ------------------------------------------------------------------------------
-# 6. Jupyter Notebook Checkpoints
+# 10. Jupyter Notebook Checkpoints
 # ------------------------------------------------------------------------------
 .ipynb_checkpoints/
 */.ipynb_checkpoints/*
 .jupyter/
 
 # ------------------------------------------------------------------------------
-# 7. Environment Variables, API Keys & Secrets
+# 11. Secrets, Environment Variables & API Keys
 # ------------------------------------------------------------------------------
 .env
 .env.*
@@ -144,9 +206,8 @@ secrets.json
 token.json
 
 # ------------------------------------------------------------------------------
-# 8. IDEs, Editors & OS Files
+# 12. IDEs, Editors & OS Files
 # ------------------------------------------------------------------------------
-# Visual Studio Code & JetBrains
 .vscode/
 *.code-workspace
 .idea/
@@ -156,8 +217,9 @@ token.json
 .gemini/
 .agent/
 .agents/
+.system_generated/
 
-# Operating System artifacts
+# OS artifacts
 .DS_Store
 .DS_Store?
 ._*
@@ -166,8 +228,4 @@ token.json
 ehthumbs.db
 Thumbs.db
 desktop.ini
-
-# Caches
 .cache/
-tmp/
-temp/
