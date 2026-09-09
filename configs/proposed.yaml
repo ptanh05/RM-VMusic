@@ -1,3 +1,5 @@
+# HISTORICAL CONFIG: not loaded by the official pipeline; use configs/official.yaml.
+# Preserved values/label order describe older experiments only.
 # ==============================================================================
 # RM-VMusic: Proposed Method Configuration
 # Model: Uncertainty-Aware Dynamic Multimodal Fusion under Distribution Shift (UAD-Fusion)

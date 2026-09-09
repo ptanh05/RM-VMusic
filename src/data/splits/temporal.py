@@ -11,13 +11,16 @@ def split_temporal(df, year_col="release_year", status_col="year_status", train_
     - Val: 2019-2020 (Transition)
     - Test: >= 2021 (Modern)
     """
-    if status_col in df.columns:
-        df_valid = df[df[status_col] == "verified"].copy()
-    else:
-        df_valid = df[df[year_col].notna()].copy()
+    if status_col not in df.columns or year_col not in df.columns:
+        raise ValueError("Temporal splits require release_year AND verification status")
+    if not train_max_year < val_min_year <= val_max_year < test_min_year:
+        raise ValueError("Temporal boundaries overlap")
+    df_valid = df[df[status_col] == "verified"].copy()
         
     df_valid[year_col] = pd.to_numeric(df_valid[year_col], errors="coerce")
     df_valid = df_valid.dropna(subset=[year_col])
+    if (df_valid[year_col] % 1 != 0).any():
+        raise ValueError("Verified years must be integers")
     
     tr_df = df_valid[df_valid[year_col] <= train_max_year].copy()
     va_df = df_valid[(df_valid[year_col] >= val_min_year) & (df_valid[year_col] <= val_max_year)].copy()

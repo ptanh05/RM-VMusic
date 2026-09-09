@@ -5,6 +5,7 @@ Ensures mathematically proven 0% artist leakage between Train, Val, and Test.
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from .base import verify_zero_artist_leakage
+from ..validation import normalize_artist
 
 def split_artist_disjoint(df, train_ratio=0.70, val_ratio=0.15, test_ratio=0.15, random_state=42, artist_col="artist", genre_col="genre"):
     """
@@ -12,7 +13,9 @@ def split_artist_disjoint(df, train_ratio=0.70, val_ratio=0.15, test_ratio=0.15,
     """
     df_copy = df.copy()
     norm_col = "_artist_norm"
-    df_copy[norm_col] = df_copy[artist_col].astype(str).str.strip().str.lower()
+    if abs(train_ratio + val_ratio + test_ratio - 1.0) > 1e-9 or min(train_ratio, val_ratio, test_ratio) <= 0:
+        raise ValueError("Split ratios must be positive and sum to 1")
+    df_copy[norm_col] = df_copy[artist_col].map(normalize_artist)
 
     # 1. Aggregate primary genre per artist for balanced stratification
     artist_meta = df_copy.groupby(norm_col).agg(

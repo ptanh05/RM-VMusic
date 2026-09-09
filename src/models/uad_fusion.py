@@ -1,132 +1,102 @@
-"""
-Uncertainty-Aware Dynamic Multimodal Fusion (UAD-Fusion) Architecture.
-"""
+"""UAD v1: positive uncertainty, exponential reliability, masked weighted sum."""
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+
 from .encoders import LyricsEncoder, CoverEncoder, AudioEncoder
 
+MODALITIES = ("lyrics", "cover", "audio")
+
+
 class ReliabilityEstimator(nn.Module):
-    """
-    Estimates the dynamic reliability weight w_m in [0, 1] for a single modality.
-    Uses modality embedding norm, variance, and binary presence mask.
-    """
+    """u=softplus(g(z)); reliability=exp(-u). This is a learned score, not a variance."""
     def __init__(self, proj_dim=256, hidden_dim=64):
         super().__init__()
-        # Input: embedding + presence mask (dim + 1)
-        self.net = nn.Sequential(
-            nn.Linear(proj_dim + 1, hidden_dim),
-            nn.ReLU(),
-            nn.Linear(hidden_dim, 1),
-            nn.Sigmoid()
-        )
+        self.net = nn.Sequential(nn.Linear(proj_dim, hidden_dim), nn.ReLU(),
+                                 nn.Linear(hidden_dim, 1))
+
+    def uncertainty(self, emb):
+        return F.softplus(self.net(emb))
 
     def forward(self, emb, mask):
-        # mask shape: [B, 1]
-        x = torch.cat([emb, mask.view(-1, 1)], dim=-1)
-        # Scale reliability directly by presence mask (if mask=0, reliability=0)
-        raw_rel = self.net(x)
-        return raw_rel * mask.view(-1, 1)
+        return torch.exp(-self.uncertainty(emb)) * mask.view(-1, 1)
+
 
 class UADFusionModel(nn.Module):
+    """Stable, inspectable fusion. Absent modalities have exactly zero weights.
+
+    Rows with no available modality yield zero fused embedding; classifier bias
+    produces finite prior-like logits. The model does not claim informed evidence
+    on those rows. Return has_evidence so downstream evaluation can separate them.
     """
-    Proposed Method: Uncertainty-Aware Dynamic Multimodal Fusion under Distribution Shift.
-    """
-    def __init__(
-        self,
-        lyrics_dim=5000,
-        cover_dim=512,
-        audio_dim=128,
-        proj_dim=256,
-        num_classes=12,
-        dropout=0.30,
-        use_reliability=True,
-        use_modality_dropout=True,
-        modality_dropout_p=0.20
-    ):
+    def __init__(self, lyrics_dim=5000, cover_dim=512, audio_dim=128, proj_dim=256,
+                 num_classes=12, dropout=0.30, use_reliability=True,
+                 use_modality_dropout=True, modality_dropout_p=0.20):
         super().__init__()
-        self.num_classes = num_classes
-        self.proj_dim = proj_dim
+        if not 0 <= modality_dropout_p <= 1:
+            raise ValueError("modality_dropout_p must be in [0, 1]")
+        self.num_classes, self.proj_dim = num_classes, proj_dim
         self.use_reliability = use_reliability
         self.use_modality_dropout = use_modality_dropout
         self.modality_dropout_p = modality_dropout_p
-
-        # 1. Modality Encoders
+        # Old sigmoid/concatenation checkpoints must not silently change meaning.
+        self.register_buffer("architecture_version", torch.tensor(1, dtype=torch.int64))
         self.lyrics_enc = LyricsEncoder(lyrics_dim, proj_dim, dropout)
         self.cover_enc = CoverEncoder(cover_dim, proj_dim, dropout)
         self.audio_enc = AudioEncoder(audio_dim, proj_dim, dropout)
-
-        # 2. Reliability Estimators
         self.lyrics_rel = ReliabilityEstimator(proj_dim)
         self.cover_rel = ReliabilityEstimator(proj_dim)
         self.audio_rel = ReliabilityEstimator(proj_dim)
-
-        # 3. Dynamic Fusion Gating & Classifier
         self.fusion_head = nn.Sequential(
-            nn.Linear(proj_dim, proj_dim),
-            nn.LayerNorm(proj_dim),
-            nn.ReLU(),
-            nn.Dropout(dropout),
-            nn.Linear(proj_dim, num_classes)
-        )
+            nn.Linear(proj_dim, proj_dim), nn.LayerNorm(proj_dim), nn.ReLU(),
+            nn.Dropout(dropout), nn.Linear(proj_dim, num_classes))
+
+    def load_state_dict(self, state_dict, strict=True, assign=False):
+        version = state_dict.get("architecture_version")
+        if version is None or int(version) != 1:
+            raise ValueError("Legacy/incompatible UAD checkpoint; explicit migration or retraining is required")
+        return super().load_state_dict(state_dict, strict=strict, assign=assign)
 
     def apply_modality_dropout(self, mask):
+        if not torch.isfinite(mask).all() or not ((mask == 0) | (mask == 1)).all():
+            raise ValueError("Modality masks must be finite binary values")
         if self.training and self.use_modality_dropout:
-            # Independent Bernoulli dropout on available modalities
-            drop = (torch.rand_like(mask) > self.modality_dropout_p).float()
-            # Ensure at least one modality remains active if any was available
-            active = mask * drop
-            # Fallback: if all dropped, restore original mask
-            all_zero = (active.sum(dim=-1, keepdim=True) == 0) & (mask.sum(dim=-1, keepdim=True) > 0)
-            active = torch.where(all_zero, mask, active)
-            return active
+            active = mask * (torch.rand_like(mask) >= self.modality_dropout_p).to(mask.dtype)
+            all_dropped = (active.sum(1, keepdim=True) == 0) & (mask.sum(1, keepdim=True) > 0)
+            # Preserve the established policy: restore original modalities if all drop.
+            return torch.where(all_dropped, mask, active)
         return mask
 
     def forward(self, lyrics_feat, cover_feat, audio_feat, has_lyrics, has_cover, has_audio):
-        batch_size = lyrics_feat.size(0)
-
-        # Encode modalities
-        h_l = self.lyrics_enc(lyrics_feat)
-        h_c = self.cover_enc(cover_feat)
-        h_a = self.audio_enc(audio_feat)
-
-        # Modality presence masks [B, 1]
-        m_l = has_lyrics.view(batch_size, 1)
-        m_c = has_cover.view(batch_size, 1)
-        m_a = has_audio.view(batch_size, 1)
-
-        # Apply controlled modality dropout during training
-        stacked_masks = torch.cat([m_l, m_c, m_a], dim=1)
-        active_masks = self.apply_modality_dropout(stacked_masks)
-        m_l, m_c, m_a = active_masks[:, 0:1], active_masks[:, 1:2], active_masks[:, 2:3]
-
+        features = (lyrics_feat, cover_feat, audio_feat)
+        batch_size = lyrics_feat.shape[0]
+        masks = torch.stack([x.reshape(batch_size) for x in (has_lyrics, has_cover, has_audio)], dim=1)
+        if not torch.isfinite(masks).all() or not ((masks == 0) | (masks == 1)).all():
+            raise ValueError("Modality masks must be finite binary values")
+        for x in features:
+            if x.ndim != 2 or x.shape[0] != batch_size or not torch.isfinite(x).all():
+                raise ValueError("Feature inputs must be finite [batch, dimension] tensors")
+        active = self.apply_modality_dropout(masks)
+        embeddings = [getattr(self, f"{mod}_enc")(x * active[:, i:i+1])
+                      for i, (mod, x) in enumerate(zip(MODALITIES, features))]
+        uncertainty = torch.cat([getattr(self, f"{mod}_rel").uncertainty(z)
+                                 for mod, z in zip(MODALITIES, embeddings)], dim=1)
+        reliability = torch.exp(-uncertainty) * active
+        has_evidence = active.sum(1) > 0
         if self.use_reliability:
-            # Estimate dynamic reliability weights w_m
-            w_l = self.lyrics_rel(h_l, m_l)
-            w_c = self.cover_rel(h_c, m_c)
-            w_a = self.audio_rel(h_a, m_a)
-
-            # Normalize weights
-            sum_w = w_l + w_c + w_a + 1e-8
-            w_l_norm = w_l / sum_w
-            w_c_norm = w_c / sum_w
-            w_a_norm = w_a / sum_w
-
-            # Dynamic weighted fusion
-            h_fused = w_l_norm * h_l + w_c_norm * h_c + w_a_norm * h_a
-            weights = torch.cat([w_l_norm, w_c_norm, w_a_norm], dim=1)
+            scores = (-uncertainty).masked_fill(active == 0, -torch.inf)
+            # Avoid softmax(-inf, -inf, -inf), and retain gradients for active rows.
+            scores = torch.where(has_evidence[:, None], scores, torch.zeros_like(scores))
+            weights = torch.softmax(scores, dim=1) * active
         else:
-            # Simple average over available active modalities
-            sum_m = m_l + m_c + m_a + 1e-8
-            h_fused = (m_l * h_l + m_c * h_c + m_a * h_a) / sum_m
-            weights = torch.cat([m_l / sum_m, m_c / sum_m, m_a / sum_m], dim=1)
-
-        # Classifier logits
-        logits = self.fusion_head(h_fused)
-
+            weights = active / active.sum(1, keepdim=True).clamp_min(1)
+        fused = sum(weights[:, i:i+1] * z for i, z in enumerate(embeddings))
         return {
-            "logits": logits,
-            "fused_embedding": h_fused,
-            "modality_weights": weights,
-            "embeddings": {"lyrics": h_l, "cover": h_c, "audio": h_a}
+            "logits": self.fusion_head(fused), "fused_embedding": fused,
+            "modality_weights": weights, "active_masks": active,
+            "has_evidence": has_evidence,
+            "uncertainty": {m: uncertainty[:, i] for i, m in enumerate(MODALITIES)},
+            "reliability": {m: reliability[:, i] for i, m in enumerate(MODALITIES)},
+            "fusion_weights": {m: weights[:, i] for i, m in enumerate(MODALITIES)},
+            "embeddings": dict(zip(MODALITIES, embeddings)),
         }

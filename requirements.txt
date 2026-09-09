@@ -1,6 +1,23 @@
-pandas>=2.0.0
-numpy>=1.24.0
-requests>=2.28.0
-tqdm>=4.65.0
-scikit-learn>=1.2.0
-scipy>=1.10.0
+# Direct runtime imports, pinned to the versions verified locally on Python 3.12.10.
+# CPU is the default execution device. torchvision is not used.
+# Feature arrays, signal transforms, masks and metrics.
+numpy==2.4.4
+# Metadata, split and prediction tables.
+pandas==3.0.5
+# TF-IDF, splitting and classification metrics.
+scikit-learn==1.9.0
+# WAV decoding and deterministic resampling.
+scipy==1.17.1
+# Datasets, neural models, training and inference.
+torch==2.5.1
+# Physical cover decoding.
+Pillow==12.2.0
+# Strict official configuration loading.
+PyYAML==6.0.3
+# Used by retained legacy ingestion/report scripts, not the offline official CLI.
+# Historical network acquisition scripts only.
+requests==2.33.1
+# Historical acquisition progress only.
+tqdm==4.67.3
+# Historical report/figure scripts only.
+matplotlib==3.10.9

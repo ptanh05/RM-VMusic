@@ -1,68 +1,46 @@
-"""
-Master Split Builder Module.
-Constructs and exports modular split folders under data/splits/<scenario>/.
-"""
-import pandas as pd
+"""Official split generation and validation; never overwrites existing split files."""
 from pathlib import Path
+
 from .iid import split_iid
 from .artist_disjoint import split_artist_disjoint
 from .temporal import split_temporal
 from .label_shift import split_label_shift
-from .missing_modality import create_missing_modality_benchmark
+from ..validation import validate_metadata, validate_splits, normalize_artist
 
-def build_all_modular_splits(df_metadata, output_root_dir):
-    """
-    Builds and writes all 5 benchmark scenarios into structured subdirectories:
-    - data/splits/iid/
-    - data/splits/artist_disjoint/
-    - data/splits/temporal/
-    - data/splits/label_shift/
-    - data/splits/missing_modality/
-    """
-    root_path = Path(output_root_dir)
-    
-    # 1. IID Split
-    dir_iid = root_path / "iid"
-    dir_iid.mkdir(parents=True, exist_ok=True)
-    tr_iid, va_iid, te_iid = split_iid(df_metadata)
-    tr_iid.to_csv(dir_iid / "train.csv", index=False)
-    va_iid.to_csv(dir_iid / "val.csv", index=False)
-    te_iid.to_csv(dir_iid / "test.csv", index=False)
-    
-    # 2. Artist Disjoint Split
-    dir_ad = root_path / "artist_disjoint"
-    dir_ad.mkdir(parents=True, exist_ok=True)
-    tr_ad, va_ad, te_ad = split_artist_disjoint(df_metadata)
-    tr_ad.to_csv(dir_ad / "train.csv", index=False)
-    va_ad.to_csv(dir_ad / "val.csv", index=False)
-    te_ad.to_csv(dir_ad / "test.csv", index=False)
-    
-    # 3. Temporal Split
-    dir_temp = root_path / "temporal"
-    dir_temp.mkdir(parents=True, exist_ok=True)
-    tr_temp, va_temp, te_temp = split_temporal(df_metadata)
-    tr_temp.to_csv(dir_temp / "train.csv", index=False)
-    va_temp.to_csv(dir_temp / "val.csv", index=False)
-    te_temp.to_csv(dir_temp / "test.csv", index=False)
-    
-    # 4. Label Shift Split
-    dir_ls = root_path / "label_shift"
-    dir_ls.mkdir(parents=True, exist_ok=True)
-    tr_ls, va_ls, te_ls = split_label_shift(df_metadata)
-    tr_ls.to_csv(dir_ls / "train.csv", index=False)
-    va_ls.to_csv(dir_ls / "val.csv", index=False)
-    te_ls.to_csv(dir_ls / "test.csv", index=False)
-    
-    # 5. Missing Modality Benchmark
-    dir_mm = root_path / "missing_modality"
-    dir_mm.mkdir(parents=True, exist_ok=True)
-    te_mm = create_missing_modality_benchmark(te_iid)
-    te_mm.to_csv(dir_mm / "test.csv", index=False)
-    
-    return {
-        "iid": {"train": len(tr_iid), "val": len(va_iid), "test": len(te_iid)},
-        "artist_disjoint": {"train": len(tr_ad), "val": len(va_ad), "test": len(te_ad)},
-        "temporal": {"train": len(tr_temp), "val": len(va_temp), "test": len(te_temp)},
-        "label_shift": {"train": len(tr_ls), "val": len(va_ls), "test": len(te_ls)},
-        "missing_modality": {"test": len(te_mm)}
+
+def make_splits(df_metadata, seed=42):
+    validate_metadata(df_metadata, all_classes=True)
+    df = df_metadata.copy()
+    if "artist" not in df:
+        raise ValueError("Artist metadata required")
+    df.artist.map(normalize_artist)  # fail on invalid identity before splitting
+    splitters = {
+        "iid": lambda: split_iid(df, random_state=seed),
+        "artist_disjoint": lambda: split_artist_disjoint(df, random_state=seed),
+        "temporal": lambda: split_temporal(df),
+        "label_shift": lambda: split_label_shift(df, random_state=seed),
     }
+    scenarios = {}
+    for scenario, build in splitters.items():
+        parts = dict(zip(("train", "val", "test"), build()))
+        validate_splits(df, parts, scenario)
+        scenarios[scenario] = parts
+    return scenarios
+
+
+def build_all_modular_splits(df_metadata, output_root_dir, seed=42):
+    scenarios = make_splits(df_metadata, seed)
+    root = Path(output_root_dir)
+    # Fail before writing ANY file if an expected target already exists.
+    targets = [root / scenario / f"{part}.csv" for scenario in scenarios for part in ("train", "val", "test")]
+    targets.append(root / "missing_modality/test.csv")
+    if any(p.exists() for p in targets):
+        raise FileExistsError("Split targets exist; choose a new versioned output directory")
+    for scenario, parts in scenarios.items():
+        folder = root / scenario
+        folder.mkdir(parents=True, exist_ok=True)
+        for name, frame in parts.items():
+            frame.to_csv(folder / f"{name}.csv", index=False, encoding="utf-8", mode="x")
+    (root / "missing_modality").mkdir(parents=True, exist_ok=True)
+    scenarios["iid"]["test"].to_csv(root / "missing_modality/test.csv", index=False, encoding="utf-8", mode="x")
+    return {sc: {part: len(frame) for part, frame in parts.items()} for sc, parts in scenarios.items()}

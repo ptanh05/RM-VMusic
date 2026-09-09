@@ -1,82 +1,48 @@
-# ==============================================================================
-# RM-VMusic: Multimodal Vietnamese Music Genre Classification
-# Production .gitignore
-# ==============================================================================
+# RM-VMusic
+#
+# Keep the reviewable, reproducible software surface in Git:
+#   src/, tests/, configs/, docs/, README and dependency manifests.
+# Data and generated artifacts are ignored by default. A reviewed dataset release
+# can be whitelisted later, after its labels, provenance and license are approved.
 
-# ------------------------------------------------------------------------------
-# 1. Thư mục nháp, file thử nghiệm & ghi chú cá nhân (Drafts & Scratch)
-# ------------------------------------------------------------------------------
-scratch/
-draft/
-drafts/
-tmp/
-temp/
-*.tmp
-*.bak
-*.swp
-*.draft.*
-*.scratch.*
-check_*.py
-inspect_*.py
-test_*.py
-scratch_*
+# -----------------------------------------------------------------------------
+# Official command-line entry points
+# -----------------------------------------------------------------------------
+# Historical/experimental scripts are local research history, not release code.
+scripts/*
+!scripts/run_all.py
+!scripts/extract_features.py
+!scripts/README.md
 
-# ------------------------------------------------------------------------------
-# 2. Toàn bộ thư mục scripts (Execution, Benchmarks, Data Hunting & Training)
-# ------------------------------------------------------------------------------
-scripts/
+# -----------------------------------------------------------------------------
+# Dataset policy
+# -----------------------------------------------------------------------------
+# Ignore all unreviewed, raw, experimental and generated data by default.
+data/*
 
-# ------------------------------------------------------------------------------
-# 3. File dữ liệu ngoại vi, danh mục trung gian & hàng đợi (External Catalogs & Queues)
-# ------------------------------------------------------------------------------
-data/raw/external/
-data/processed/external_*.csv
-data/processed/*external*.csv
-data/processed/*phase*.csv
-data/processed/*candidate*.csv
-data/processed/*_expanded*.csv
-data/processed/*queue*.csv
-data/processed/*rejected*.csv
-data/processed/*blocked*.csv
-data/processed/*inventory*.csv
-data/splits/v4/
-data/splits/external/
-data/splits/experimental/
-data/splits/tmp/
+# Existing tracked data remain in Git history because .gitignore does not remove
+# tracked files. Do not add new data until the data quality gate is complete.
 
-# ------------------------------------------------------------------------------
-# 4. Báo cáo nháp & kết quả thử nghiệm mở rộng (Draft Reports & Working Logs)
-# ------------------------------------------------------------------------------
-reports/*expanded_report*.md
-reports/*phase1[1-6]*
-reports/*_draft*
-reports/*_temp*
-reports/*_candidate*
-reports/*_inventory*
-reports/*_decision*
-reports/*_quality_report*
-reports/*_status_report*
+# Official-v1 splits, caches and runs are reproducible build artifacts.
+artifacts/
 
-# ------------------------------------------------------------------------------
-# 5. Dữ liệu nhị phân & tài sản media nặng (Audio, Covers, Features)
-# ------------------------------------------------------------------------------
-data/raw/
-data/audio/
-data/covers/
-data/features/
-data/cache/
-data/temp/
-data/tmp/
+# -----------------------------------------------------------------------------
+# Generated research results
+# -----------------------------------------------------------------------------
+# Historical tracked files are preserved, but new outputs must not be added
+# automatically. Publish selected tables/figures deliberately after review.
+outputs/
+reports/
 
-# Binary embeddings & matrices
+# -----------------------------------------------------------------------------
+# Binary data, media, archives and model weights
+# -----------------------------------------------------------------------------
 *.npy
 *.npz
 *.hdf5
 *.h5
 *.arrow
 *.parquet
-
-# Audio formats
 *.mp3
 *.wav
 *.flac
@@ -85,8 +51,6 @@ data/tmp/
 *.opus
 *.aac
 *.wma
-
-# Compressed archives
 *.zip
 *.tar
 *.tar.gz
@@ -95,10 +59,6 @@ data/tmp/
 *.7z
 *.gz
 *.bz2
-
-# ------------------------------------------------------------------------------
-# 6. Checkpoint mô hình & trọng số huấn luyện (Model Weights)
-# ------------------------------------------------------------------------------
 *.pt
 *.pth
 *.ckpt
@@ -111,14 +71,18 @@ data/tmp/
 *.pkl
 *.pickle
 *.model
-
-outputs/checkpoints/
 checkpoints/
 weights/
 
-# ------------------------------------------------------------------------------
-# 7. Experiment Tracking, Logs & Outputs
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# Local experiments, logs and scratch work
+# -----------------------------------------------------------------------------
+scratch/
+draft/
+drafts/
+tmp/
+temp/
+downloads/
 logs/
 *.log
 wandb/
@@ -127,40 +91,36 @@ lightning_logs/
 tensorboard/
 mlruns/
 *.tfevents.*
-outputs/wandb/
-outputs/logs/
+*.tmp
+*.bak
+*.swp
+*.draft.*
+*.scratch.*
 
-# ------------------------------------------------------------------------------
-# 8. Python Cache, Bytecode & Build Artifacts
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# Python, tests and packaging
+# -----------------------------------------------------------------------------
 __pycache__/
 *.py[cod]
 *$py.class
-*.so
-*.pyd
-.Python
+.pytest_cache/
+.pytest_tmp/
+.coverage
+coverage.xml
+htmlcov/
+.mypy_cache/
+.pyright/
+.ruff_cache/
+.hypothesis/
+.tox/
+.nox/
 build/
-develop-eggs/
 dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-share/python-wheels/
 *.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
+.eggs/
 pip-wheel-metadata/
 
-# ------------------------------------------------------------------------------
-# 9. Virtual Environments & Package Managers
-# ------------------------------------------------------------------------------
+# Virtual environments
 .venv/
 venv/
 ENV/
@@ -170,16 +130,14 @@ venv.bak/
 conda-env/
 .conda/
 
-# ------------------------------------------------------------------------------
-# 10. Jupyter Notebook Checkpoints
-# ------------------------------------------------------------------------------
+# Notebook state
 .ipynb_checkpoints/
 */.ipynb_checkpoints/*
 .jupyter/
 
-# ------------------------------------------------------------------------------
-# 11. Secrets, Environment Variables & API Keys
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# Secrets, editors and operating-system metadata
+# -----------------------------------------------------------------------------
 .env
 .env.*
 !.env.example
@@ -188,22 +146,15 @@ conda-env/
 credentials.json
 secrets.json
 token.json
-
-# ------------------------------------------------------------------------------
-# 12. IDEs, Editors & OS Files
-# ------------------------------------------------------------------------------
 .vscode/
 *.code-workspace
 .idea/
-
-# AI Assistants & Agents metadata
 .cursor/
 .gemini/
 .agent/
 .agents/
 .system_generated/
-
-# OS artifacts
+.cache/
 .DS_Store
 .DS_Store?
 ._*
@@ -212,4 +163,3 @@ token.json
 ehthumbs.db
 Thumbs.db
 desktop.ini
-.cache/

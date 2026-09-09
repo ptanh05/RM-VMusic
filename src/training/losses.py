@@ -28,6 +28,8 @@ class SupervisedContrastiveLoss(nn.Module):
     """
     def __init__(self, temperature=0.10):
         super().__init__()
+        if temperature <= 0:
+            raise ValueError("temperature must be positive")
         self.temperature = temperature
 
     def forward(self, features, labels):
@@ -36,7 +38,7 @@ class SupervisedContrastiveLoss(nn.Module):
         device = features.device
         batch_size = features.shape[0]
         if batch_size <= 1:
-            return torch.tensor(0.0, device=device, requires_grad=True)
+            return features.sum() * 0.0
 
         features = F.normalize(features, p=2, dim=1)
         sim_matrix = torch.matmul(features, features.T) / self.temperature
@@ -61,7 +63,10 @@ class SupervisedContrastiveLoss(nn.Module):
 
         # Mean of log-likelihood over positive pairs
         mean_log_prob_pos = (mask * log_prob).sum(1) / (mask.sum(1) + 1e-8)
-        loss = -mean_log_prob_pos.mean()
+        positive_anchors = mask.sum(1) > 0
+        if not positive_anchors.any():
+            return features.sum() * 0.0
+        loss = -mean_log_prob_pos[positive_anchors].mean()
         return loss
 
 class DistributionInvarianceLoss(nn.Module):

@@ -8,6 +8,8 @@ def split_iid(df, train_ratio=0.70, val_ratio=0.15, test_ratio=0.15, random_stat
     """
     Generates a standard stratified IID split (70/15/15).
     """
+    if abs(train_ratio + val_ratio + test_ratio - 1.0) > 1e-9 or min(train_ratio, val_ratio, test_ratio) <= 0:
+        raise ValueError("Split ratios must be positive and sum to 1")
     test_size = val_ratio + test_ratio
     tr_df, temp_df = train_test_split(
         df, test_size=test_size, random_state=random_state, stratify=df[stratify_col]

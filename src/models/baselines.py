@@ -92,3 +92,11 @@ class SingleModalityModel(nn.Module):
             h = h * mask.view(-1, 1)
         logits = self.classifier(h)
         return {"logits": logits, "embedding": h}
+
+
+class UnifiedSingleModalityModel(SingleModalityModel):
+    """Six-input adapter; preserves the original single-input model API."""
+    def forward(self, lyrics_feat, cover_feat, audio_feat, has_lyrics, has_cover, has_audio):
+        i = ("lyrics", "cover", "audio").index(self.modality)
+        return super().forward((lyrics_feat, cover_feat, audio_feat)[i],
+                               (has_lyrics, has_cover, has_audio)[i])

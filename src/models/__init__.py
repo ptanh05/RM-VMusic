@@ -3,7 +3,7 @@ RM-VMusic Models Package.
 """
 from .encoders import LyricsEncoder, CoverEncoder, AudioEncoder, ModalityProjector
 from .uad_fusion import UADFusionModel, ReliabilityEstimator
-from .baselines import EarlyConcatModel, LateFusionModel, SingleModalityModel
+from .baselines import EarlyConcatModel, LateFusionModel, SingleModalityModel, UnifiedSingleModalityModel
 
 __all__ = [
     "LyricsEncoder",
@@ -14,5 +14,6 @@ __all__ = [
     "ReliabilityEstimator",
     "EarlyConcatModel",
     "LateFusionModel",
-    "SingleModalityModel"
+    "SingleModalityModel",
+    "UnifiedSingleModalityModel"
 ]

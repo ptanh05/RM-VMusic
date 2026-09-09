@@ -1,88 +1,79 @@
-# RM-VMusic: Reproducibility & Scientific Replication Guide
+# Reproducibility
 
-This guide specifies the exact, step-by-step procedures to replicate the entire RM-VMusic experimental benchmark from scratch.
+## Verified environment
 
----
+The cleanup and offline validation were executed on Windows, Python 3.12.10, PyTorch 2.5.1+cu121 and CUDA 12.1 availability. CPU is the official default. `requirements.txt` pins all direct runtime imports; `requirements-dev.txt` adds pytest. No `torchvision` dependency exists.
 
-## 1. Environment & Dependencies
+Install in a fresh environment:
 
-- **OS:** Windows 10/11 or Ubuntu Linux 22.04+
-- **Python Version:** 3.10, 3.11, or 3.12 (UTF-8 encoding enabled)
-- **PyTorch Version:** PyTorch 2.5.1+ (CUDA or CPU compatible)
-
-### Installation
 ```bash
-# Clone and enter repository
-git clone https://github.com/ptanh05/RM-VMusic.git
-cd RM-VMusic
-
-# Create and activate virtual environment
 python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-
-# Install required dependencies
-pip install -r requirements.txt
+.venv\Scripts\activate
+python -m pip install -r requirements-dev.txt
 ```
 
----
+PyTorch wheels are platform-specific. If the exact CUDA-tagged wheel is required, install the matching official PyTorch wheel before the remaining requirements. The documented pipeline does not require CUDA.
 
-## 2. One-Click Master Pipeline Replication
+## Frozen inputs and generated outputs
 
-To execute all 9 pipeline stages sequentially (Materialization $\to$ Dataset Build $\to$ 5 Splits $\to$ Leakage Audit $\to$ Feature Extraction $\to$ Baselines & UAD-Fusion Training $\to$ 12 Publication Figures $\to$ Markdown Reports):
+The source dataset, row count and SHA-256 are in `configs/official.yaml`. Physical source assets remain under `data/lyrics/`, `data/covers/`, and `data/audio/`. Preparation records the SHA-256 of every asset linked by the official metadata.
+
+All new outputs are isolated below `artifacts/official-v1/`:
+
+```text
+metadata.csv
+manifest.json
+splits/<scenario>/{train,val,test}.csv
+features/<scenario>/{arrays, song_ids.json, vectorizer.json, manifest.json}
+runs/<run-id>/{config.json, environment.json, checkpoints, histories}
+runs/<run-id>/evaluation/{predictions, metrics, summary.csv}
+```
+
+Existing `data/features/`, `outputs/`, and `reports/` are historical and are not consumed or overwritten.
+
+## Commands
+
+Read-only source and split validation:
 
 ```bash
-python scripts/run_all.py
+python scripts/run_all.py validate
 ```
 
----
+Full offline test suite and tiny real-data forward smoke:
 
-## 3. Step-by-Step Modular Replication
-
-### Step 1: Physical Asset Materialization & Validation
 ```bash
-python scripts/materialize_covers.py
-python scripts/materialize_lyrics.py
-python scripts/materialize_audio.py
+python -m pytest -q
+python scripts/run_all.py smoke
 ```
 
-### Step 2: Build 12-Class Dataset with Verified `OTHER`
+Prepare all deterministic splits and scenario-specific features without training:
+
 ```bash
-python scripts/build_12class_dataset.py
+python scripts/run_all.py prepare
+python scripts/run_all.py validate --require-cache
 ```
 
-### Step 3: Generate 5 Distribution-Shift Partitions
+Future explicit training and held-out evaluation:
+
 ```bash
-python scripts/create_final12_splits.py
+python scripts/run_all.py train --run-id first_clean_run
+python scripts/run_all.py evaluate --run-id first_clean_run
 ```
 
-### Step 4: Run Data Leakage & Isolation Audit
-```bash
-python scripts/final12_leakage_audit.py
-```
+A run ID is required and cannot overwrite an existing run directory.
 
-### Step 5: Extract Real Physical Features
-```bash
-python scripts/extract_features.py
-```
+## Determinism and identity
 
-### Step 6: Multi-Seed Experiments, Ablation Ladder & Figure Generation
-```bash
-python scripts/run_master_experiments.py
-```
+The split seed is 42. Training seeds are 42, 123, 2024, 3407, and 7777. The helper seeds Python, NumPy, CPU/CUDA PyTorch, enables deterministic algorithms, disables cuDNN benchmarking, configures the cuBLAS workspace, and uses a seeded DataLoader generator. CPU thread count is fixed to one by config.
 
-### Step 7: Statistical Significance & Missing Modality Testing
-```bash
-python scripts/phase8_statistics.py
-```
+Exact cross-platform floating-point equality is not guaranteed across PyTorch/BLAS/CUDA implementations. Each run stores package/platform metadata, config digest, cache-manifest digest and checkpoint checksums so differences are observable.
 
----
+TF-IDF is fitted separately for each train scenario. The cache refuses mismatched train IDs, source bytes, implementation, labels or metadata. The split generator fails if normalized artists overlap in the artist-disjoint scenario. Metric computation fixes the class denominator at 12.
 
-## 4. Key Output Artifact Locations
+## Git
 
-- **Dataset Metadata:** `data/processed/final_12class_metadata.csv`
-- **Benchmark Splits:** `data/splits/final12_*.csv`
-- **Extracted Features:** `data/features/{lyrics, cover, audio}/`
-- **Trained Model Checkpoints:** `outputs/checkpoints/`
-- **Numerical Metrics JSON:** `outputs/metrics/final_master_metrics.json`
-- **High-Resolution Figures:** `reports/figures/` (12 publication plots)
-- **Detailed Markdown Reports:** `reports/*.md`
+Before this cleanup, `.gitignore` excluded all of `scripts/` and any `test_*.py`. These exclusions were removed. The working tree now exposes scripts, tests, config, docs and dependency manifests for review. This task does not stage, commit, push or change remotes; reproducibility from a clone begins only after the maintainer reviews and commits these visible files.
+
+## Hardware assumptions
+
+Validation, preparation, smoke and tests run on CPU. The full configured experiment is CPU-compatible but computationally expensive: four scenarios × six models × five seeds. CUDA may be selected explicitly in config only when available; there is no silent fallback. Memory must accommodate a dense 5,569×5,000 float32 lyrics matrix during extraction (about 106 MiB before temporary transformations).

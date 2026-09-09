@@ -1,47 +1,24 @@
-# RM-VMusic Phase 9: Formal Methodological & Mathematical Specification of UAD-Fusion
+# UAD-Fusion official-v1 specification
 
-This document specifies the exact mathematical formulations, loss functions, and architectural layers of the **Uncertainty-Aware Dynamic Multimodal Fusion (UAD-Fusion)** network.
+For each modality m in {lyrics, cover, audio}, a two-layer encoder maps a finite feature vector to z_m in R^256. The binary mask is applied to the raw feature before encoding, so an unavailable input cannot affect the prediction through arbitrary cached values.
 
----
+The learned uncertainty head produces
 
-## 1. Modality-Specific Encoders
+```text
+u_m = Softplus(g_m(z_m))
+r_m = exp(-u_m) * mask_m
+alpha_m = exp(-u_m) / sum_j exp(-u_j), over available modalities only
+z_fused = sum_m alpha_m * z_m
+```
 
-Let a music instance be represented by the triplet of physical modalities $(x_{\text{lyrics}}, x_{\text{cover}}, x_{\text{audio}})$ and binary availability masks $(m_{\text{lyrics}}, m_{\text{cover}}, m_{\text{audio}}) \in \{0, 1\}^3$.
+Unavailable modalities have exactly zero reliability and fusion weight. Computation uses masked softmax for numerical stability. When every mask is zero, all fusion weights and `z_fused` are zero; `has_evidence=False` is returned and the classifier bias yields finite logits. Such predictions are counted separately during evaluation.
 
-Each modality is mapped to a shared projection dimension $d = 256$:
-$$h_l = \text{Encoder}_l(x_{\text{lyrics}}) \odot m_{\text{lyrics}} \in \mathbb{R}^{256}$$
-$$h_c = \text{Encoder}_c(x_{\text{cover}}) \odot m_{\text{cover}} \in \mathbb{R}^{256}$$
-$$h_a = \text{Encoder}_a(x_{\text{audio}}) \odot m_{\text{audio}} \in \mathbb{R}^{256}$$
+During training, independent modality dropout is applied only to already available masks. If every available modality would be dropped, the original mask is restored. Evaluation does not apply model-side dropout.
 
----
+The forward result exposes `uncertainty`, `reliability`, `fusion_weights`, `modality_weights`, `active_masks`, `has_evidence`, modality embeddings, the fused embedding and logits.
 
-## 2. Dynamic Uncertainty & Reliability Estimation
+The scores are learned positive reliability scores. They have not been established as calibrated aleatoric variance estimates; “inverse variance” should not be claimed without a suitable probabilistic objective and validation.
 
-For each active modality $m \in \{l, c, a\}$, an MLP uncertainty estimator predicts an unconstrained log-variance score $s_m$:
-$$u_m = \text{Softplus}\left(W_{u,m} h_m + b_{u,m}\right) + (1.0 - m_m) \cdot 10.0$$
+The official objective is weighted cross-entropy plus supervised contrastive loss on evidence-bearing fused representations. The old unpaired distribution-invariance loss is disabled because it attracted representations from unrelated labels solely on the basis of different modality masks.
 
-The dynamic fusion weights $w_m$ are computed via normalized inverse-uncertainty softmax:
-$$w_m = \frac{\exp(-u_m)}{\sum_{k \in \{l, c, a\}} \exp(-u_k)}, \quad \sum_{m} w_m = 1.0$$
-
----
-
-## 3. Dynamic Representation Fusion & Classification
-
-The uncertainty-weighted representations are concatenated and projected:
-$$h_{\text{fused}} = \text{LayerNorm}\left(\text{LeakyReLU}\left(W_f \left[ w_l h_l \,\|\, w_c h_c \,\|\, w_a h_a \right] + b_f\right)\right) \in \mathbb{R}^{512}$$
-$$\hat{y} = \text{Softmax}\left(W_{\text{cls}} h_{\text{fused}} + b_{\text{cls}}\right) \in \mathbb{R}^{12}$$
-
----
-
-## 4. Supervised Contrastive Multimodal Loss
-
-To enforce intra-genre compactness and inter-genre separability under missing modalities:
-$$\mathcal{L}_{\text{supcon}} = \sum_{i=1}^{B} \frac{-1}{|P(i)|} \sum_{p \in P(i)} \log \frac{\exp\left(\frac{z_i \cdot z_p}{\tau}\right)}{\sum_{a \in A(i)} \exp\left(\frac{z_i \cdot z_a}{\tau}\right)}$$
-where $z_i = \frac{h_{\text{fused}, i}}{\|h_{\text{fused}, i}\|_2}$ and $\tau = 0.10$.
-
----
-
-## 5. Total Training Objective
-
-$$\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{CE}}(\hat{y}, y; w_{\text{class}}) + \lambda_{\text{supcon}} \mathcal{L}_{\text{supcon}}$$
-with balanced class weighting $w_{\text{class}} = \frac{N}{12 \cdot N_c}$ and $\lambda_{\text{supcon}} = 0.15$.
+Architecture version 1 is stored in the model state and rejects legacy sigmoid-gate checkpoints. Old experimental results therefore cannot be attributed to this corrected implementation without retraining.

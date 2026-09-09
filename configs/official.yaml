@@ -1,0 +1,51 @@
+# Sole supported research pipeline. Historical datasets/results are read-only.
+schema_version: 1
+pipeline_version: official-v1
+dataset:
+  metadata: data/processed/final_12class_metadata_v3.csv
+  sha256: b933b94bac5c9796bfb1deecea12745ce89510d2b85c069c0f74388a5fba6f4a
+  expected_rows: 5569
+artifacts: artifacts/official-v1
+classes:
+  - POP_BALLAD
+  - BOLERO_TRUTINH
+  - INSTRUMENTAL
+  - RAP_HIPHOP
+  - FOLK_TRADITIONAL
+  - DANCE_EDM
+  - REVOLUTIONARY
+  - NHAC_TRINH
+  - ROCK
+  - RB_SOUL
+  - OTHER
+  - CHILDREN
+split:
+  seed: 42
+  scenarios: [iid, artist_disjoint, temporal, label_shift]
+features:
+  lyrics_dim: 5000
+  cover_dim: 512
+  audio_dim: 128
+  audio_sample_rate: 16000
+  audio_seconds: 10
+model:
+  proj_dim: 256
+  dropout: 0.30
+  use_reliability: true
+  use_modality_dropout: true
+  modality_dropout_p: 0.20
+training:
+  seeds: [42, 123, 2024, 3407, 7777]
+  device: cpu
+  threads: 1
+  batch_size: 64
+  epochs: 35
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  patience: 8
+  lambda_supcon: 0.15
+  lambda_inv: 0.0
+  models: [lyrics_only, cover_only, audio_only, early_concat, late_fusion, uad]
+evaluation:
+  ece_bins: 10
+  missing_rates: [0.0, 0.2, 0.5, 0.8, 1.0]
