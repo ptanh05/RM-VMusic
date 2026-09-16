@@ -19,6 +19,8 @@ scripts/*
 # -----------------------------------------------------------------------------
 # Ignore all unreviewed, raw, experimental and generated data by default.
 data/*
+!data/audio/
+!data/audio/**
 
 # Existing tracked data remain in Git history because .gitignore does not remove
 # tracked files. Do not add new data until the data quality gate is complete.
@@ -51,6 +53,13 @@ reports/
 *.opus
 *.aac
 *.wma
+!data/audio/**
+!data/audio/**/*.mp3
+!data/audio/**/*.wav
+!data/audio/**/*.flac
+!data/audio/**/*.m4a
+!data/audio/**/*.ogg
+!data/audio/**/*.aac
 *.zip
 *.tar
 *.tar.gz
